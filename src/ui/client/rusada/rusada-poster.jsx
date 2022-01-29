@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-evenly",
         alignItems: "center",
-        marginBottom: 20,
         '@media (max-width: 750px)': {
             flexDirection: 'column',
             alignItems: "center",
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         marginBottom: 20,
         "& a": {
-            border: '1px solid #005580',
             borderRadius: 5,
             padding: '5px 10px',
             '@media (max-width: 750px)': {
@@ -54,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
             transition: '0.2s'
         },
         "& a:hover": {
-            borderColor: '#ff6200',
             color: '#ff6200!important',
         }
     }

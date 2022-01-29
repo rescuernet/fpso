@@ -16,7 +16,6 @@ const useStyles = makeStyles({
         marginBottom: 30,
         borderRadius: 10,
         overflow: 'hidden',
-        boxShadow: '4px 4px 10px rgba(0,0,0,0.2)',
     },
     avatar: {
         display: "flex",
@@ -55,6 +54,8 @@ const useStyles = makeStyles({
         justifyContent: "center",
         flex: '1 0',
         padding: 15,
+        borderLeft: '1px solid #c4c4c4',
+        borderRight: '1px solid #c4c4c4',
     },
     control: {
         display: "flex",
@@ -100,7 +101,6 @@ export const NewsCardMobile = ({news, index})=> {
                     {news.headerFirst}
                 </div>
             </div>
-            <Divider/>
             <div className={classes.control}>
                 <NavLink to={UI_RM.News__Id.getUrl(news._id)}>
                     <Button

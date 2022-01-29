@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         width: 300,
         height: 510,
         backgroundColor: '#fff',
-        boxShadow: '4px 4px 10px rgba(0,0,0,0.2)',
+        border: '1px solid #c4c4c4',
         marginBottom: 40,
         borderRadius: 5,
         overflow: "hidden",

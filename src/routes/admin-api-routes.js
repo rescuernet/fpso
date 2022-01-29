@@ -64,6 +64,14 @@ const AdminAPIRouterManager = {
         path: `${PrefixPath.admin}/competitions/delete`,
         getUrl() {return `${PrefixPath.admin}/competitions/delete`},
     },
+    Calendar_Plan__Docs__Create: {
+        path: `${PrefixPath.admin}/calendar-plan/docs-create`,
+        getUrl() {return `${PrefixPath.admin}/calendar-plan/docs-create`},
+    },
+    Calendar_Plan__Save: {
+        path:`${PrefixPath.admin}/calendar-plan/save`,
+        getUrl() {return `${PrefixPath.admin}/calendar-plan/save`},
+    },
     Judges_Orders__Create: {
         path:`${PrefixPath.admin}/judges-orders/create`,
         getUrl() {return `${PrefixPath.admin}/judges-orders/create`},

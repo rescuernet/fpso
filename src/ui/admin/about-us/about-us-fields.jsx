@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     textFields: {
         '& > *': {
             marginBottom: 20
+        },
+        '& .Mui-disabled': {
+            color: '#000000de'
         }
     },
 }))

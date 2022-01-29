@@ -14,10 +14,9 @@ const useStyles = makeStyles({
         width: 600,
         marginBottom: 30,
         backgroundColor: '#fff',
-        border: 'solid 1px #e6e6e6',
+        border: 'solid 1px #c4c4c4',
         borderRadius: 5,
         overflow: 'hidden',
-        boxShadow: '4px 4px 10px rgba(0,0,0,0.2)',
     },
     avatar: {
         flex: '0 0 auto',
@@ -73,7 +72,7 @@ const useStyles = makeStyles({
         textAlign: "right",
         padding: '0 15px',
     },
-    importantNews: {
+    important: {
         borderColor: '#ff0000',
         backgroundColor: '#fff5f5'
     }
@@ -85,7 +84,7 @@ const NewsCardDesktop = ({news,index}) => {
     const avatarIMG = `${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${news.avatar}`
 
     return (
-        <div className={`${classes.root} ${news.importantNews && classes.importantNews}`}>
+        <div className={classes.root + ' ' + (news.importantNews ? classes.important : '')}>
             <div className={classes.avatar}>
                 {news.avatar
                     ? <div className={classes.img}>

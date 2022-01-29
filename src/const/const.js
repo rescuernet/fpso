@@ -1,5 +1,5 @@
-/*export const API_URL = process.env.REACT_APP_API_URL || `https://fpso-api.herokuapp.com`*/
-export const API_URL = `http://localhost:5000`
+export const API_URL = 'http://localhost:5000'
+/*export const API_URL = `http://141.8.193.205:5000`*/
 
 export const BACKGROUD_COLOR_BLUE = '#3f51b5'
 

@@ -12,8 +12,26 @@ import AdminPageWrapper from "../admin-page-wrapper";
 
 const useStyles = makeStyles((theme) => ({
     control: {
+        display: "flex",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        width: 1000,
+        '@media (max-width: 1280px)' : {
+            width: 700
+        },
+        '@media (max-width: 750px)' : {
+            width: 340,
+            flexDirection: 'column',
+            alignItems: 'center'
+        },
         marginBottom: 20,
     },
+    button: {
+        '@media (max-width: 750px)' : {
+            width: 250,
+            marginBottom: 10
+        },
+    }
 }));
 
 const Comp = (props) => {
@@ -26,8 +44,12 @@ const Comp = (props) => {
             const response = await AdminCompetitionsStore.compCreate()
             response === 'OK'
                 ? history.push(ADM_RM.Competitions__Edit.getUrl(AdminCompetitionsStore.tmpCompId))
-                : history.push(ADM_RM.Main.path)
+                : history.push(ADM_RM.Competitions.path)
         })
+    }
+
+    const calendarPlan = () => {
+        history.push(ADM_RM.Calendar_Plan.path)
     }
 
 
@@ -38,8 +60,25 @@ const Comp = (props) => {
                     variant={"contained"}
                     color={"primary"}
                     onClick={() => {createCompetitions()}}
+                    className={classes.button}
                 >
                     Создать соревнование
+                </Button>
+                <Button
+                    variant={"contained"}
+                    color={"primary"}
+                    onClick={() => {calendarPlan()}}
+                    className={classes.button}
+                >
+                    Календарный план
+                </Button>
+                <Button
+                    variant={"contained"}
+                    color={"primary"}
+                    /*onClick={() => {createCompetitions()}}*/
+                    className={classes.button}
+                >
+                    Сборная
                 </Button>
             </div>
             <CompItem />

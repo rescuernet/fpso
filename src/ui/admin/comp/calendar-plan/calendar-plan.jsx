@@ -1,16 +1,14 @@
 import React, {useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
-import AdminPageWrapper from "../admin-page-wrapper";
-import AdminAboutUsStore from "../../../bll/admin/admin-about-us-store";
-import {runInAction} from "mobx";
-import Store from "../../../bll/store";
-import AdminAboutUsFields from "./about-us-fields";
-import AdminAboutUsDocs from "./about-us-docs";
-import AdminAboutUSImg from "./about-us-img";
-import {ADM_RM} from "../../../routes/admin-routes";
-import {useHistory} from "react-router-dom";
+import AdminPageWrapper from "../../admin-page-wrapper";
+import AdminCalendarPlanStore from "../../../../bll/admin/admin-calendar-plan-store";
+import {runInAction, toJS} from "mobx";
+import AdminCalendarPlanFields from "./calendar-plan-fields";
+import AdminAboutUsStore from "../../../../bll/admin/admin-about-us-store";
 import {Button} from "@material-ui/core";
+import Store from "../../../../bll/store";
+import AdminCalendarPlanDocs from "./calendar-plan-docs";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -28,37 +26,37 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const AdminAboutUs = (props) => {
+const CalendarPlan = (props) => {
     const classes = useStyles();
-    const history = useHistory();
 
     useEffect(()=>{
-        runInAction( async () => {
-            await AdminAboutUsStore.aboutUsGet()
+        runInAction(async () => {
+            await AdminCalendarPlanStore.calendarPlanGet()
         })
         return () => {
             runInAction(async () => {
                 await Store.sendMediaDelTmp()
-                AdminAboutUsStore.clearData()
+                AdminCalendarPlanStore.clearData()
             })
         }
     },[])
 
+    console.log(toJS(AdminCalendarPlanStore.plan))
+
     return (
-        <AdminPageWrapper title={'О нас'}>
-            {AdminAboutUsStore.aboutUs && (
+        <AdminPageWrapper title={'Календарный план'}>
+            {AdminCalendarPlanStore.plan && (
                 <div className={classes.wrapper}>
-                    <AdminAboutUsFields/>
-                    <AdminAboutUsDocs/>
-                    <AdminAboutUSImg/>
+                    <AdminCalendarPlanFields/>
+                    <AdminCalendarPlanDocs/>
                     <div className={classes.control}>
-                        {!AdminAboutUsStore.aboutUs.edit && (
+                        {!AdminCalendarPlanStore.plan.edit && (
                             <Button
                                 variant={"outlined"}
                                 color={"primary"}
                                 onClick={()=>{
                                     runInAction(()=>{
-                                        AdminAboutUsStore.aboutUs.edit = true
+                                        AdminCalendarPlanStore.plan.edit = true
                                     })
                                 }}
                             >
@@ -66,14 +64,14 @@ const AdminAboutUs = (props) => {
                             </Button>
                         )}
 
-                        {AdminAboutUsStore.aboutUs.edit && (
+                        {AdminCalendarPlanStore.plan.edit && (
                             <>
                                 <Button
                                     variant={"outlined"}
                                     color={"primary"}
                                     onClick={()=>{
                                         runInAction( async () => {
-                                            await AdminAboutUsStore.aboutUsGet()
+                                            await AdminCalendarPlanStore.calendarPlanGet()
                                             await Store.sendMediaDelTmp()
                                         })
                                     }}
@@ -85,8 +83,8 @@ const AdminAboutUs = (props) => {
                                     color={"primary"}
                                     onClick={()=>{
                                         runInAction( async () => {
-                                            await AdminAboutUsStore.aboutUsSave()
-                                            await AdminAboutUsStore.aboutUsGet()
+                                            await AdminCalendarPlanStore.calendarPlanSave()
+                                            await AdminCalendarPlanStore.calendarPlanGet()
                                             await Store.sendMediaDelTmp()
                                         })
                                     }}
@@ -102,4 +100,4 @@ const AdminAboutUs = (props) => {
     );
 };
 
-export default observer(AdminAboutUs);
+export default observer(CalendarPlan);
