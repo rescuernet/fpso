@@ -48,10 +48,6 @@ const Comp = (props) => {
         })
     }
 
-    const calendarPlan = () => {
-        history.push(ADM_RM.Calendar_Plan.path)
-    }
-
 
     return (
         <AdminPageWrapper title={'Соревнования'}>
@@ -67,7 +63,7 @@ const Comp = (props) => {
                 <Button
                     variant={"contained"}
                     color={"primary"}
-                    onClick={() => {calendarPlan()}}
+                    onClick={() => {history.push(ADM_RM.Calendar_Plan.path)}}
                     className={classes.button}
                 >
                     Календарный план
@@ -75,7 +71,7 @@ const Comp = (props) => {
                 <Button
                     variant={"contained"}
                     color={"primary"}
-                    /*onClick={() => {createCompetitions()}}*/
+                    onClick={() => {history.push(ADM_RM.Team.path)}}
                     className={classes.button}
                 >
                     Сборная

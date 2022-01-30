@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#fff',
         overflow: "hidden",
         marginBottom: 40,
+        '@media (max-width: 750px)': {
+            marginBottom: 20,
+        },
         borderBottom: '1px solid #c4c4c4'
     },
     img: {
@@ -20,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
         '@media (max-width: 750px)': {
             flexDirection: 'column',
             alignItems: "center",
+            marginBottom: 20,
         },
         '& img': {
             margin: '20px 0'

@@ -1,5 +1,7 @@
 import Competitions from "../ui/client/comp/comp";
 import CompetitionsView from "../ui/client/comp/comp-view/comp-view";
+import CalendarPlan from "../ui/client/comp/calendar-plan/calendar-plan";
+import Team from "../ui/client/comp/team/team";
 import LoginForm from "../ui/client/login/login-form";
 import Main from "../ui/client/main/main";
 import News from "../ui/client/news/news";
@@ -62,6 +64,26 @@ const UIRouterManager = {
             title: 'Новости'
         }
     },
+    Calendar_Plan: {
+        path:'/competitions/calendar-plan',
+        Component: CalendarPlan,
+        getUrl() {return `/competitions/calendar-plan`},
+        auth: false,
+        header: {
+            view: true,
+            title: 'Календарный план'
+        }
+    },
+    Team: {
+        path:'/competitions/team',
+        Component: Team,
+        getUrl() {return `/competitions/team`},
+        auth: false,
+        header: {
+            view: true,
+            title: 'Календарный план'
+        }
+    },
     Competitions: {
         path:'/competitions',
         Component: Competitions,
@@ -96,6 +118,7 @@ const UIRouterManager = {
             title: 'Соревнования'
         }
     },
+
     JudgesOrders: {
         path:'/judges-orders',
         Component: JudgesOrders,

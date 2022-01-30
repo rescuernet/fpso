@@ -4,6 +4,7 @@ import AdminNewsEdit from "../ui/admin/news/news-create-edit/news-create-edit";
 import AdminCompetitions from "../ui/admin/comp/comp";
 import AdminCompetitionsEdit from "../ui/admin/comp/comp-edit/comp-edit";
 import AdminCalendarPlan from "../ui/admin/comp/calendar-plan/calendar-plan";
+import AdminTeam from "../ui/admin/comp/team/team";
 import AdminReferenceBooks from "../ui/admin/reference-books/reference-books";
 import AdminReferenceBooksPools from "../ui/admin/reference-books/pool/pools";
 import AdminReferenceBooksPoolsEdit from "../ui/admin/reference-books/pool/pools-edit";
@@ -81,6 +82,15 @@ const AdminRouterManager = {
         path: `${PrefixPath.admin}/calendar-plan`,
         Component: AdminCalendarPlan,
         getUrl() {return `${PrefixPath.admin}/calendar-plan`},
+        auth: true,
+        header: {
+            view: false
+        },
+    },
+    Team: {
+        path: `${PrefixPath.admin}/team`,
+        Component: AdminTeam,
+        getUrl() {return `${PrefixPath.admin}/team`},
         auth: true,
         header: {
             view: false

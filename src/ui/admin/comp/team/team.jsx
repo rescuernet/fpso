@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import AdminPageWrapper from "../../admin-page-wrapper";
-import AdminCalendarPlanStore from "../../../../bll/admin/admin-calendar-plan-store";
+import AdminTeamStore from "../../../../bll/admin/admin-team-store";
 import {runInAction, toJS} from "mobx";
-import AdminCalendarPlanFields from "./calendar-plan-fields";
+import AdminTeamFields from "./team-fields";
 import {Button} from "@material-ui/core";
 import Store from "../../../../bll/store";
-import AdminCalendarPlanDocs from "./calendar-plan-docs";
+import AdminTeamDocs from "./team-docs";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -25,35 +25,35 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const CalendarPlan = (props) => {
+const Team = (props) => {
     const classes = useStyles();
 
     useEffect(()=>{
         runInAction(async () => {
-            await AdminCalendarPlanStore.calendarPlanGet()
+            await AdminTeamStore.teamGet()
         })
         return () => {
             runInAction(async () => {
                 await Store.sendMediaDelTmp()
-                AdminCalendarPlanStore.clearData()
+                AdminTeamStore.clearData()
             })
         }
     },[])
 
     return (
-        <AdminPageWrapper title={'Календарный план'}>
-            {AdminCalendarPlanStore.plan && (
+        <AdminPageWrapper title={'Сборная'}>
+            {AdminTeamStore.team && (
                 <div className={classes.wrapper}>
-                    <AdminCalendarPlanFields/>
-                    <AdminCalendarPlanDocs/>
+                    <AdminTeamFields/>
+                    <AdminTeamDocs/>
                     <div className={classes.control}>
-                        {!AdminCalendarPlanStore.plan.edit && (
+                        {!AdminTeamStore.team.edit && (
                             <Button
                                 variant={"outlined"}
                                 color={"primary"}
                                 onClick={()=>{
                                     runInAction(()=>{
-                                        AdminCalendarPlanStore.plan.edit = true
+                                        AdminTeamStore.team.edit = true
                                     })
                                 }}
                             >
@@ -61,14 +61,14 @@ const CalendarPlan = (props) => {
                             </Button>
                         )}
 
-                        {AdminCalendarPlanStore.plan.edit && (
+                        {AdminTeamStore.team.edit && (
                             <>
                                 <Button
                                     variant={"outlined"}
                                     color={"primary"}
                                     onClick={()=>{
                                         runInAction( async () => {
-                                            await AdminCalendarPlanStore.calendarPlanGet()
+                                            await AdminTeamStore.teamGet()
                                             await Store.sendMediaDelTmp()
                                         })
                                     }}
@@ -80,8 +80,8 @@ const CalendarPlan = (props) => {
                                     color={"primary"}
                                     onClick={()=>{
                                         runInAction( async () => {
-                                            await AdminCalendarPlanStore.calendarPlanSave()
-                                            await AdminCalendarPlanStore.calendarPlanGet()
+                                            await AdminTeamStore.teamSave()
+                                            await AdminTeamStore.teamGet()
                                             await Store.sendMediaDelTmp()
                                         })
                                     }}
@@ -97,4 +97,4 @@ const CalendarPlan = (props) => {
     );
 };
 
-export default observer(CalendarPlan);
+export default observer(Team);

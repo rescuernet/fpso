@@ -5,13 +5,13 @@ import Menu from "../menu/menu";
 import {observer} from "mobx-react-lite";
 import AuthStore from "../../../bll/auth-store";
 import BpContainer from "../bp-container";
+import {useHistory} from "react-router-dom";
+import {UI_RM} from "../../../routes/ui-routes";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
-        display:'flex',
         flexDirection:'row',
         alignItems: "center",
-        position: "fixed",
         borderBottom: '2px solid #ff6200',
         height: 50,
     },
@@ -19,15 +19,13 @@ const useStyles = makeStyles((theme) => ({
     toolBar: {
         display: "flex",
         flexDirection: "row",
-        flexGrow: 1,
         justifyContent: "space-between",
-        minHeight:0,
-        padding:0
+        alignItems: "center",
+        padding: 0
     },
     fpso: {
         textTransform: "uppercase",
         fontSize: 20,
-        fontFamily: 'Roboto',
         letterSpacing: 10,
         textShadow: '1px 1px 3px #000',
         '@media (max-width: 750px)': {
@@ -36,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
             letterSpacing: 5,
             width: 100,
         },
+        '&:hover': {
+            cursor: 'pointer'
+        }
     },
     title: {
         textTransform: "uppercase",
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
     const classes = useStyles()
+    const history = useHistory()
 
     const isAuth = AuthStore.isAuth
 
@@ -55,10 +57,10 @@ const Header = (props) => {
         <AppBar className={classes.appBar}>
             <Menu isAuth={isAuth} logout={AuthStore.logout}/>
             <BpContainer>
-                <Toolbar className={classes.toolBar}>
+                <div className={classes.toolBar}>
                     <div className={classes.title}>{props.title}</div>
-                    <div className={classes.fpso}>samara swimming</div>
-                </Toolbar>
+                    <div className={classes.fpso} onClick={()=>{history.push(UI_RM.Main.path)}}>samara swimming</div>
+                </div>
             </BpContainer>
         </AppBar>
     );

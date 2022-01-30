@@ -5,9 +5,8 @@ import {observer} from "mobx-react-lite";
 const useStyles = makeStyles((theme) => ({
     container: {
         width: 1280,
-        height: '100%',
         margin: '0 auto',
-        padding: 10,
+        padding: '0 10px',
         '@media (max-width: 1280px)': {
             width: 740
         },

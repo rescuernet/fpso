@@ -5,7 +5,7 @@ import {observer} from "mobx-react-lite";
 import {makeStyles} from "@material-ui/core/styles";
 import Store from "../../../bll/store";
 import {Pagination} from "@material-ui/lab";
-import {useHistory, useParams} from "react-router-dom";
+import {NavLink, useHistory, useParams} from "react-router-dom";
 import {UI_RM} from "../../../routes/ui-routes";
 import CompItem from "./comp-item";
 import UiPageWrapper from "../ui-page-wrapper";
@@ -22,6 +22,22 @@ const useStyles = makeStyles((theme) => ({
         },
         flexWrap: "wrap",
         marginTop: 20,
+    },
+    subsection: {
+        display: "flex",
+        '& a': {
+            borderBottom: '1px solid #005580',
+            paddingBottom: 10,
+            color: '#005580!important',
+            margin: '0 20px',
+            '@media (max-width: 750px)': {
+                margin: 0,
+            },
+        },
+        '@media (max-width: 750px)': {
+            display: 'flex',
+            justifyContent: 'space-around'
+        },
     },
     paginationTop: {
         display: "flex",
@@ -63,9 +79,17 @@ const Comp = () => {
         <UiPageWrapper header={'Соревнования'}>
             <BpContainer>
                 <Rusada/>
+                <div className={classes.subsection}>
+                    <NavLink to={UI_RM.Calendar_Plan.path}>
+                        Календарный план
+                    </NavLink>
+                    <NavLink to={UI_RM.Team.path}>
+                        Сборная
+                    </NavLink>
+                </div>
                 {compItem &&
                     <>
-                        {pagesCount > 1 &&
+                        {pagesCount === 1 &&
                             <div className={classes.paginationTop}>
                                 <Pagination
                                     count={pagesCount}
