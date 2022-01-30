@@ -2,15 +2,15 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Divider, TextField} from "@material-ui/core";
 import {runInAction} from "mobx";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
-import pdf from "../../../../common/assets/image/icons/pdf.png";
-import doc from "../../../../common/assets/image/icons/doc.png";
-import docx from "../../../../common/assets/image/icons/docx.png";
-import xls from "../../../../common/assets/image/icons/xls.png";
-import xlsx from "../../../../common/assets/image/icons/xlsx.png";
+import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../const/const";
+import pdf from "../../../common/assets/image/icons/pdf.png";
+import doc from "../../../common/assets/image/icons/doc.png";
+import docx from "../../../common/assets/image/icons/docx.png";
+import xls from "../../../common/assets/image/icons/xls.png";
+import xlsx from "../../../common/assets/image/icons/xlsx.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {observer} from "mobx-react-lite";
-import AdminCalendarPlanStore from "../../../../bll/admin/admin-calendar-plan-store";
+import AdminTeamStore from "../../../bll/admin/admin-team-store";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -51,15 +51,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Icon = {xls, xlsx, doc, docx, pdf}
 
-const AdminCalendarPlanDocsItem = (props) => {
+const AdminTeamDocsItem = (props) => {
     const classes = useStyles();
-    const extension = AdminCalendarPlanStore.plan.docs[props.index].doc.slice(AdminCalendarPlanStore.plan.docs[props.index].doc.lastIndexOf(".") + 1)
+    const extension = AdminTeamStore.team.docs[props.index].doc.slice(AdminTeamStore.team.docs[props.index].doc.lastIndexOf(".") + 1)
 
     //удаление одного документа
     const DeleteOneDocs = (docsId,docsName) => {
         runInAction(() => {
-            AdminCalendarPlanStore.mediaDel.push(docsName)
-            AdminCalendarPlanStore.plan.docs.splice(docsId,1)
+            AdminTeamStore.mediaDel.push(docsName)
+            AdminTeamStore.team.docs.splice(docsId,1)
         })
     };
 
@@ -69,22 +69,22 @@ const AdminCalendarPlanDocsItem = (props) => {
                 id="headerFirst"
                 required={true}
                 label="название документа"
-                value={AdminCalendarPlanStore.plan.docs[props.index].title}
+                value={AdminTeamStore.team.docs[props.index].title}
                 onChange={(e) => {
                     runInAction(() => {
-                        AdminCalendarPlanStore.plan.docs[props.index].title = (e.target.value)
+                        AdminTeamStore.team.docs[props.index].title = (e.target.value)
                     })
                 }}
                 variant="outlined"
                 multiline
                 minRows={1}
                 maxRows={10}
-                disabled={!AdminCalendarPlanStore.plan.edit}
+                disabled={!AdminTeamStore.team.edit}
             />
             <a href={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
                 <img src={Icon[extension]} alt="" />
             </a>
-            {AdminCalendarPlanStore.plan.edit && (
+            {AdminTeamStore.team.edit && (
                 <>
                     <Divider orientation={"vertical"} flexItem={true}/>
                     <HighlightOffIcon
@@ -99,4 +99,4 @@ const AdminCalendarPlanDocsItem = (props) => {
     );
 };
 
-export default observer(AdminCalendarPlanDocsItem);
+export default observer(AdminTeamDocsItem);

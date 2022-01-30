@@ -60,22 +60,6 @@ const Comp = (props) => {
                 >
                     Создать соревнование
                 </Button>
-                <Button
-                    variant={"contained"}
-                    color={"primary"}
-                    onClick={() => {history.push(ADM_RM.Calendar_Plan.path)}}
-                    className={classes.button}
-                >
-                    Календарный план
-                </Button>
-                <Button
-                    variant={"contained"}
-                    color={"primary"}
-                    onClick={() => {history.push(ADM_RM.Team.path)}}
-                    className={classes.button}
-                >
-                    Сборная
-                </Button>
             </div>
             <CompItem />
         </AdminPageWrapper>

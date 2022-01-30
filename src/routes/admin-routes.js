@@ -3,8 +3,8 @@ import AdminNews from "../ui/admin/news/news";
 import AdminNewsEdit from "../ui/admin/news/news-create-edit/news-create-edit";
 import AdminCompetitions from "../ui/admin/comp/comp";
 import AdminCompetitionsEdit from "../ui/admin/comp/comp-edit/comp-edit";
-import AdminCalendarPlan from "../ui/admin/comp/calendar-plan/calendar-plan";
-import AdminTeam from "../ui/admin/comp/team/team";
+import AdminCalendarPlan from "../ui/admin/calendar-plan/calendar-plan";
+import AdminTeam from "../ui/admin/team/team";
 import AdminReferenceBooks from "../ui/admin/reference-books/reference-books";
 import AdminReferenceBooksPools from "../ui/admin/reference-books/pool/pools";
 import AdminReferenceBooksPoolsEdit from "../ui/admin/reference-books/pool/pools-edit";
@@ -86,6 +86,10 @@ const AdminRouterManager = {
         header: {
             view: false
         },
+        menu: {
+            type: MenuTypes.admin,
+            title: 'Календарный план'
+        }
     },
     Team: {
         path: `${PrefixPath.admin}/team`,
@@ -95,6 +99,10 @@ const AdminRouterManager = {
         header: {
             view: false
         },
+        menu: {
+            type: MenuTypes.admin,
+            title: 'Сборная'
+        }
     },
     Judges_Orders: {
         path:`${PrefixPath.admin}/judges-orders`,

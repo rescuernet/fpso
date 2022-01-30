@@ -3,8 +3,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import {runInAction} from "mobx";
 import {observer} from "mobx-react-lite";
-import AdminCalendarPlanStore from "../../../../bll/admin/admin-calendar-plan-store";
-import AdminCalendarPlanDocsItem from "./calendar-plan-docs-item";
+import AdminTeamStore from "../../../bll/admin/admin-team-store";
+import AdminTeamDocsItem from "./team-docs-item";
 
 const useStyles = makeStyles((theme) => ({
     docs: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const AdminCalendarPlanDocs = () => {
+const AdminTeamDocs = () => {
     const classes = useStyles();
 
     //загрузка документов
@@ -28,21 +28,21 @@ const AdminCalendarPlanDocs = () => {
         const data = new FormData()
         data.append('files',event.target.files[0]);
         runInAction( async () => {
-            await runInAction(()=>{AdminCalendarPlanStore.calendarPlanDocsCreate(data,originName)})
+            await runInAction(()=>{AdminTeamStore.teamDocsCreate(data,originName)})
         })
     };
 
     return (
         <div className={classes.docs}>
-            {AdminCalendarPlanStore.plan.edit && (
+            {AdminTeamStore.team.edit && (
                 <div>Документы</div>
             )}
             {
-                AdminCalendarPlanStore.plan.docs.map((item,index)=>(
-                    <AdminCalendarPlanDocsItem key={'docs'+index} item={item} index={index}/>
+                AdminTeamStore.team.docs.map((item,index)=>(
+                    <AdminTeamDocsItem key={'docs'+index} item={item} index={index}/>
                 ))
             }
-            {AdminCalendarPlanStore.plan.edit && (
+            {AdminTeamStore.team.edit && (
                 <div className={classes.add}>
                     <label htmlFor="docs">
                         <input
@@ -67,4 +67,4 @@ const AdminCalendarPlanDocs = () => {
     );
 };
 
-export default observer(AdminCalendarPlanDocs);
+export default observer(AdminTeamDocs);

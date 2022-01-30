@@ -3,8 +3,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import {runInAction} from "mobx";
 import {observer} from "mobx-react-lite";
-import AdminTeamStore from "../../../../bll/admin/admin-team-store";
-import AdminTeamDocsItem from "./team-docs-item";
+import AdminCalendarPlanStore from "../../../bll/admin/admin-calendar-plan-store";
+import AdminCalendarPlanDocsItem from "./calendar-plan-docs-item";
 
 const useStyles = makeStyles((theme) => ({
     docs: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const AdminTeamDocs = () => {
+const AdminCalendarPlanDocs = () => {
     const classes = useStyles();
 
     //загрузка документов
@@ -28,21 +28,21 @@ const AdminTeamDocs = () => {
         const data = new FormData()
         data.append('files',event.target.files[0]);
         runInAction( async () => {
-            await runInAction(()=>{AdminTeamStore.teamDocsCreate(data,originName)})
+            await runInAction(()=>{AdminCalendarPlanStore.calendarPlanDocsCreate(data,originName)})
         })
     };
 
     return (
         <div className={classes.docs}>
-            {AdminTeamStore.team.edit && (
+            {AdminCalendarPlanStore.plan.edit && (
                 <div>Документы</div>
             )}
             {
-                AdminTeamStore.team.docs.map((item,index)=>(
-                    <AdminTeamDocsItem key={'docs'+index} item={item} index={index}/>
+                AdminCalendarPlanStore.plan.docs.map((item,index)=>(
+                    <AdminCalendarPlanDocsItem key={'docs'+index} item={item} index={index}/>
                 ))
             }
-            {AdminTeamStore.team.edit && (
+            {AdminCalendarPlanStore.plan.edit && (
                 <div className={classes.add}>
                     <label htmlFor="docs">
                         <input
@@ -67,4 +67,4 @@ const AdminTeamDocs = () => {
     );
 };
 
-export default observer(AdminTeamDocs);
+export default observer(AdminCalendarPlanDocs);
