@@ -4,6 +4,8 @@ import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles((theme) => ({
     container: {
+        display: "flex",
+        flexDirection: "column",
         width: 1280,
         margin: '0 auto',
         padding: '0 10px',
@@ -16,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const BpContainer = ({children}) => {
+const BpContainer = ({style,children}) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.container}>
+        <div className={classes.container} style={style}>
             {children}
         </div>
     );

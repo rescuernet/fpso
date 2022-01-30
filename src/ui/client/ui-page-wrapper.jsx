@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
         flex: '1 0'
     },
     content: {
-        flex: '1 0 auto'
+        flex: '1 0 auto',
+        display: "flex",
+        flexDirection: "column",
+        position: "relative"
     }
 }))
 

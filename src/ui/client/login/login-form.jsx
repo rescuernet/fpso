@@ -10,15 +10,12 @@ import UiPageWrapper from "../ui-page-wrapper";
 import BpContainer from "../bp-container";
 
 const useStyles = makeStyles((theme) => ({
+    wrapper: {
+
+    },
     login: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         maxWidth: 340,
         margin: '0 auto',
-
     },
     textField: {
         marginBottom: 20
@@ -54,7 +51,7 @@ const LoginForm = () => {
 
     return (
         <UiPageWrapper header={'Авторизация'}>
-            <BpContainer>
+            <BpContainer style={{flex: '1 0 auto',justifyContent: 'center'}}>
                 <div className={classes.login}>
                     <Box
                         component="form"
