@@ -23,6 +23,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {JudgesAlertDialog} from "./judges-orders-edit-alert";
 import JudgesOrdersDocs from "./judges-orders-edit-docs";
 import {ADM_RM} from "../../../../routes/admin-routes";
+import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -88,6 +89,8 @@ const JudgesOrdersEdit = (props) => {
 
     const [open,setOpen] = useState(false)
 
+    const [deleteOrder, setDeleteOrder] = useState(false);
+
     useEffect(() => {
         runInAction(async () => {
             await Store.sendMediaDelTmp()
@@ -121,6 +124,18 @@ const JudgesOrdersEdit = (props) => {
 
     const cancel = async () => {
         history.push(ADM_RM.Judges_Orders.path)
+    }
+
+    const orderDelete = () => {
+        setDeleteOrder(true)
+    }
+
+    const orderDeleteConfirm = async (id) => {
+        setDeleteOrder(false)
+        const result = await AdminJudgesOrdersStore.judgesOrdersDelete(id)
+        if (result === 200) {
+            history.push(ADM_RM.Judges_Orders.path)
+        }
     }
 
     return (
@@ -218,9 +233,10 @@ const JudgesOrdersEdit = (props) => {
                                             color="secondary"
                                         />
                                     }
-                                    label={order?.view && order.view ? 'отображать в системе' : 'не отображать в системе'}
+                                    label={order?.view && order.view ? 'отображать' : 'не отображать'}
                                 />
                                 <Button variant={"contained"} color={"primary"} onClick={()=>{saveOrder()}}>Сохранить</Button>
+                                <Button variant={"contained"} color={"secondary"} onClick={()=>{orderDelete()}}>удалить</Button>
                             </>
                         )}
                         <Button variant={"outlined"} color={"primary"} onClick={()=>{cancel()}}>Отмена</Button>
@@ -233,6 +249,21 @@ const JudgesOrdersEdit = (props) => {
                             orderId={id}
                         />
                     )}
+
+                    {deleteOrder &&
+                        <JudgesAlertDialog
+                            alertType={'confirm'}
+                            open={true}
+                            header={'Внимание!'}
+                            text={'Подтвердите удаление приказа'}
+                            delete={() => {
+                                orderDeleteConfirm(id)
+                            }}
+                            close={() => {
+                                setDeleteOrder(false)
+                            }}
+                        />
+                    }
 
                     {AdminJudgesOrdersStore.tmp_errors && (
                         <JudgesAlertDialog

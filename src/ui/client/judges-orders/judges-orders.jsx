@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: 20
     },
     control: {
+        minWidth: 350,
         marginBottom: 20,
         '@media (max-width: 600px)' : {
             marginTop: 20

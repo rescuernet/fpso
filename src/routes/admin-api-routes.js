@@ -104,6 +104,10 @@ const AdminAPIRouterManager = {
         path:`${PrefixPath.admin}/judges-orders/save`,
         getUrl() {return `${PrefixPath.admin}/judges-orders/save`},
     },
+    Judges_Orders__Delete: {
+        path:`${PrefixPath.admin}/judges-orders/delete`,
+        getUrl() {return `${PrefixPath.admin}/judges-orders/delete`},
+    },
     Reference__Books__Pools_Get: {
         path:`${PrefixPath.admin}/reference-books/pools/get`,
         getUrl() {return `${PrefixPath.admin}/reference-books/pools/get`},
