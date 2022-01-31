@@ -8,6 +8,8 @@ import AdminTeamFields from "./team-fields";
 import {Button} from "@material-ui/core";
 import Store from "../../../bll/store";
 import AdminTeamDocs from "./team-docs";
+import {ErrorAlert} from "../calendar-plan/error-alert";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Team = (props) => {
     const classes = useStyles();
+    const history = useHistory();
 
     useEffect(()=>{
         runInAction(async () => {
@@ -39,6 +42,14 @@ const Team = (props) => {
             })
         }
     },[])
+
+    const save = async () => {
+        const result = await AdminTeamStore.teamSave()
+        if (result === 200) {
+            await AdminTeamStore.teamGet()
+            await Store.sendMediaDelTmp()
+        }
+    };
 
     return (
         <AdminPageWrapper title={'Сборная'}>
@@ -78,19 +89,20 @@ const Team = (props) => {
                                 <Button
                                     variant={"contained"}
                                     color={"primary"}
-                                    onClick={()=>{
-                                        runInAction( async () => {
-                                            await AdminTeamStore.teamSave()
-                                            await AdminTeamStore.teamGet()
-                                            await Store.sendMediaDelTmp()
-                                        })
-                                    }}
+                                    onClick={()=>{save()}}
                                 >
                                     Сохранить
                                 </Button>
                             </>
                         )}
                     </div>
+                    {AdminTeamStore.tmp_errors &&
+                        <ErrorAlert
+                            open={true}
+                            header={'Ошибка!'}
+                            text={AdminTeamStore.tmp_errors}
+                        />
+                    }
                 </div>
             )}
         </AdminPageWrapper>

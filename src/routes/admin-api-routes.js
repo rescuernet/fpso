@@ -80,6 +80,14 @@ const AdminAPIRouterManager = {
         path:`${PrefixPath.admin}/team/save`,
         getUrl() {return `${PrefixPath.admin}/team/save`},
     },
+    Rusada__Docs__Create: {
+        path: `${PrefixPath.admin}/rusada/docs-create`,
+        getUrl() {return `${PrefixPath.admin}/rusada/docs-create`},
+    },
+    Rusada__Save: {
+        path:`${PrefixPath.admin}/rusada/save`,
+        getUrl() {return `${PrefixPath.admin}/rusada/save`},
+    },
     Judges_Orders__Create: {
         path:`${PrefixPath.admin}/judges-orders/create`,
         getUrl() {return `${PrefixPath.admin}/judges-orders/create`},

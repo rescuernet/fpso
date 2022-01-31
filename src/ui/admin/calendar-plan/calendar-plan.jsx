@@ -8,6 +8,10 @@ import AdminCalendarPlanFields from "./calendar-plan-fields";
 import {Button} from "@material-ui/core";
 import Store from "../../../bll/store";
 import AdminCalendarPlanDocs from "./calendar-plan-docs";
+import {ErrorAlert} from "./error-alert";
+import AdminCompStore from "../../../bll/admin/admin-competitions-store";
+import {ADM_RM} from "../../../routes/admin-routes";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -27,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CalendarPlan = (props) => {
     const classes = useStyles();
+    const history = useHistory();
 
     useEffect(()=>{
         runInAction(async () => {
@@ -39,6 +44,14 @@ const CalendarPlan = (props) => {
             })
         }
     },[])
+
+    const save = async () => {
+        const result = await AdminCalendarPlanStore.calendarPlanSave()
+        if (result === 200) {
+            await AdminCalendarPlanStore.calendarPlanGet()
+            await Store.sendMediaDelTmp()
+        }
+    };
 
     return (
         <AdminPageWrapper title={'Календарный план'}>
@@ -78,19 +91,20 @@ const CalendarPlan = (props) => {
                                 <Button
                                     variant={"contained"}
                                     color={"primary"}
-                                    onClick={()=>{
-                                        runInAction( async () => {
-                                            await AdminCalendarPlanStore.calendarPlanSave()
-                                            await AdminCalendarPlanStore.calendarPlanGet()
-                                            await Store.sendMediaDelTmp()
-                                        })
-                                    }}
+                                    onClick={()=>{save()}}
                                 >
                                     Сохранить
                                 </Button>
                             </>
                         )}
                     </div>
+                    {AdminCalendarPlanStore.tmp_errors &&
+                        <ErrorAlert
+                            open={true}
+                            header={'Ошибка!'}
+                            text={AdminCalendarPlanStore.tmp_errors}
+                        />
+                    }
                 </div>
             )}
         </AdminPageWrapper>

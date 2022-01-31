@@ -5,6 +5,7 @@ import AdminCompetitions from "../ui/admin/comp/comp";
 import AdminCompetitionsEdit from "../ui/admin/comp/comp-edit/comp-edit";
 import AdminCalendarPlan from "../ui/admin/calendar-plan/calendar-plan";
 import AdminTeam from "../ui/admin/team/team";
+import AdminRusada from "../ui/admin/rusada/rusada";
 import AdminReferenceBooks from "../ui/admin/reference-books/reference-books";
 import AdminReferenceBooksPools from "../ui/admin/reference-books/pool/pools";
 import AdminReferenceBooksPoolsEdit from "../ui/admin/reference-books/pool/pools-edit";
@@ -124,6 +125,19 @@ const AdminRouterManager = {
         auth: true,
         header: {
             view: false
+        }
+    },
+    Rusada: {
+        path: `${PrefixPath.admin}/rusada`,
+        Component: AdminRusada,
+        getUrl() {return `${PrefixPath.admin}/rusada`},
+        auth: true,
+        header: {
+            view: false
+        },
+        menu: {
+            type: MenuTypes.admin,
+            title: 'Антидопинг'
         }
     },
     Reference__Books: {
