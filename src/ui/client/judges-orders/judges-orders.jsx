@@ -13,13 +13,11 @@ import Rusada from "../rusada/rusada-poster";
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         margin: '0 auto',
-        maxWidth: 600,
         paddingBottom: 20
     },
     control: {
-        minWidth: 350,
         marginBottom: 20,
-        '@media (max-width: 600px)' : {
+        '@media (max-width: 750px)' : {
             marginTop: 20
         },
     },
@@ -27,8 +25,13 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 20
     },
     select: {
-        maxWidth: 400,
         margin: '20px 0'
+    },
+    orders: {
+        width: 600,
+        '@media (max-width: 750px)' : {
+            width: 340
+        },
     }
 }))
 

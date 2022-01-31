@@ -16,17 +16,18 @@ const useStyles = makeStyles((theme) => ({
     },
     control: {
         display: "flex",
-        justifyContent: "space-between",
         marginBottom: 30,
         '@media (max-width: 750px)' : {
             flexDirection: 'column',
+            alignItems: 'center',
+        },
+    },
+    button: {
+        marginRight: 30,
+        '@media (max-width: 750px)' : {
             width: 195,
-            '& .MuiButton-root': {
-                width: 195
-            },
-            '& > *': {
-                marginBottom: 10
-            }
+            marginRight: 0,
+            marginBottom: 20
         },
     }
 }))
@@ -83,6 +84,7 @@ const Rusada = (props) => {
                                     onChange={UploadDocs}
                                 />
                                 <Button
+                                    className={classes.button}
                                     color="primary"
                                     variant={"contained"}
                                     component={'span'}
@@ -91,6 +93,7 @@ const Rusada = (props) => {
                                 </Button>
                             </label>
                             <Button
+                                className={classes.button}
                                 variant={"outlined"}
                                 color={"primary"}
                                 onClick={()=>{
@@ -103,6 +106,7 @@ const Rusada = (props) => {
                                 Отмена
                             </Button>
                             <Button
+                                className={classes.button}
                                 variant={"contained"}
                                 color={"primary"}
                                 onClick={()=>{save()}}

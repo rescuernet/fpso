@@ -78,8 +78,23 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-evenly",
         paddingTop: 20,
-        borderTop: '1px solid #ccc'
+        borderTop: '1px solid #ccc',
+        '@media (max-width: 750px)' : {
+            flexDirection: 'column',
+            alignItems: "center",
+        },
     },
+    checkBox: {
+        '@media (max-width: 750px)': {
+            marginBottom: 20,
+        },
+    },
+    button: {
+        width: 120,
+        '@media (max-width: 750px)': {
+            marginBottom: 20,
+        },
+    }
 }))
 
 const JudgesOrdersEdit = (props) => {
@@ -235,11 +250,11 @@ const JudgesOrdersEdit = (props) => {
                                     }
                                     label={order?.view && order.view ? 'отображать' : 'не отображать'}
                                 />
-                                <Button variant={"contained"} color={"primary"} onClick={()=>{saveOrder()}}>Сохранить</Button>
-                                <Button variant={"contained"} color={"secondary"} onClick={()=>{orderDelete()}}>удалить</Button>
+                                <Button className={classes.button} variant={"contained"} color={"primary"} onClick={()=>{saveOrder()}}>Сохранить</Button>
+                                <Button className={classes.button} variant={"contained"} color={"secondary"} onClick={()=>{orderDelete()}}>удалить</Button>
                             </>
                         )}
-                        <Button variant={"outlined"} color={"primary"} onClick={()=>{cancel()}}>Отмена</Button>
+                        <Button className={classes.button} variant={"outlined"} color={"primary"} onClick={()=>{cancel()}}>Отмена</Button>
                     </div>
 
                     {open && (
