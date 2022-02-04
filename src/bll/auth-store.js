@@ -1,7 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import AuthService from "../services/auth-service";
 import axios from "axios";
-import {API_URL} from "../const/const";
+import {SERVER_URL} from "../const/const";
 import Store from "./store"
 
 
@@ -74,7 +74,7 @@ class AuthStore {
         runInAction(() => {Store.isInit = false})
         runInAction(() => {Store.isLoading = true})
         try {
-            const response = await axios.get(`${API_URL}/api/refresh`,{withCredentials:true});
+            const response = await axios.get(`${SERVER_URL}/api/refresh`,{withCredentials:true});
             localStorage.setItem('token',response.data.accessToken);
             runInAction(() => {this.user = response.data.user})
             runInAction(() => {this.isAuth = true})

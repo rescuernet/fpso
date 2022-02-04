@@ -1,8 +1,8 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../const/const";
 import AdminAboutUsStore from "../../../bll/admin/admin-about-us-store";
+import {STORAGE_URL} from "../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     imagesItem: {
@@ -31,7 +31,7 @@ const AdminAboutUSImgItem = (props) => {
             {AdminAboutUsStore.aboutUs.edit && (
                 <HighlightOffIcon id={props.index} onClick={()=> {props.DeleteOneImage(props.index,props.item)}} color={'error'}/>
             )}
-            <img src={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/crop_${props.item}`} alt=""/>
+            <img src={`${STORAGE_URL}/crop_${props.item}`} alt=""/>
         </div>
     );
 };

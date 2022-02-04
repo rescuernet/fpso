@@ -8,9 +8,8 @@ import Store from "../../../bll/store";
 import AdminAboutUsFields from "./about-us-fields";
 import AdminAboutUsDocs from "./about-us-docs";
 import AdminAboutUSImg from "./about-us-img";
-import {ADM_RM} from "../../../routes/admin-routes";
-import {useHistory} from "react-router-dom";
 import {Button} from "@material-ui/core";
+import {ErrorAlert} from "../calendar-plan/error-alert";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AdminAboutUs = (props) => {
     const classes = useStyles();
-    const history = useHistory();
 
     useEffect(()=>{
         runInAction( async () => {
@@ -96,6 +94,13 @@ const AdminAboutUs = (props) => {
                             </>
                         )}
                     </div>
+                    {AdminAboutUsStore.tmp_errors &&
+                        <ErrorAlert
+                            open={true}
+                            header={'Ошибка!'}
+                            text={AdminAboutUsStore.tmp_errors}
+                        />
+                    }
                 </div>
             )}
         </AdminPageWrapper>

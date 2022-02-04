@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
-import {runInAction} from "mobx";
+import {runInAction, toJS} from "mobx";
 import {observer} from "mobx-react-lite";
 import CompDocsItem from "./comp-docs-item";
 
@@ -46,6 +46,8 @@ const CompDocs = ({compId}) => {
         })
     };
 
+    const docsCount = AdminCompStore.compOne?.docs && AdminCompStore.compOne.docs.length
+
     return (
         <div className={classes.docs}>
             <div className={classes.headerWrap}>
@@ -54,7 +56,7 @@ const CompDocs = ({compId}) => {
             </div>
             {
                 AdminCompStore.compOne.docs && AdminCompStore.compOne.docs.map((item,index)=>(
-                    <CompDocsItem key={'docs'+index} item={item} index={index} compId={compId}/>
+                    <CompDocsItem key={'docs'+index} item={item} index={index} compId={compId} docsCount={docsCount}/>
                 ))
             }
             <div className={classes.docsAdd}>

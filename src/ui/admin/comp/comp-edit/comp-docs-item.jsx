@@ -3,7 +3,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Divider, TextField} from "@material-ui/core";
 import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
 import {runInAction} from "mobx";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
 import pdf from "../../../../common/assets/image/icons/pdf.png";
 import doc from "../../../../common/assets/image/icons/doc.png";
 import docx from "../../../../common/assets/image/icons/docx.png";
@@ -11,7 +10,11 @@ import xls from "../../../../common/assets/image/icons/xls.png";
 import xlsx from "../../../../common/assets/image/icons/xlsx.png";
 import lxf from "../../../../common/assets/image/icons/lxf.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {observer} from "mobx-react-lite";
+import {SERVER_URL} from "../../../../const/const";
+import {moveItemDown, moveItemUp} from "../../../../utils/up-down-item";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -45,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
             flexGrow: 1
         },
     },
+    move: {
+        display: "flex",
+        flexDirection: "column"
+    }
 }))
 
 const Icon = {xls, xlsx, doc, docx, pdf, lxf}
@@ -56,6 +63,7 @@ const DeleteOneDocs = (docsId,docsName) => {
         AdminCompStore.compOne.docs.splice(docsId,1)
     })
 };
+
 
 const CompDocsItem = (props) => {
     const classes = useStyles();
@@ -77,13 +85,24 @@ const CompDocsItem = (props) => {
                 minRows={1}
                 maxRows={10}
             />
-            <a href={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
+            <a href={`${SERVER_URL}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
                 <img src={Icon[extension]} alt="" />
             </a>
             <Divider orientation={"vertical"} flexItem={true}/>
             <HighlightOffIcon onClick={() => {
                 DeleteOneDocs(props.index,props.item.doc)
             }} color={'error'}/>
+            <Divider orientation={"vertical"} flexItem={true}/>
+            {props.docsCount > 1 && (
+                <div className={classes.move}>
+                    {props.index > 0 && (
+                        <ArrowDropUpIcon onClick={()=>{moveItemUp(props.index,AdminCompStore.compOne.docs)}}/>
+                    )}
+                    {props.index + 1 < props.docsCount && (
+                        <ArrowDropDownIcon onClick={()=>{moveItemDown(props.index,AdminCompStore.compOne.docs)}}/>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

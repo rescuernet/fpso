@@ -2,7 +2,6 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Divider, TextField} from "@material-ui/core";
 import {runInAction} from "mobx";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../const/const";
 import pdf from "../../../common/assets/image/icons/pdf.png";
 import doc from "../../../common/assets/image/icons/doc.png";
 import docx from "../../../common/assets/image/icons/docx.png";
@@ -12,6 +11,7 @@ import lxf from "../../../common/assets/image/icons/lxf.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {observer} from "mobx-react-lite";
 import AdminCalendarPlanStore from "../../../bll/admin/admin-calendar-plan-store";
+import {STORAGE_URL} from "../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -82,7 +82,7 @@ const AdminCalendarPlanDocsItem = (props) => {
                 maxRows={10}
                 disabled={!AdminCalendarPlanStore.plan.edit}
             />
-            <a href={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
+            <a href={`${STORAGE_URL}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
                 <img src={Icon[extension]} alt="" />
             </a>
             {AdminCalendarPlanStore.plan.edit && (

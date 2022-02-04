@@ -2,9 +2,9 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
 import {runInAction} from "mobx";
 import {observer} from "mobx-react-lite";
+import {STORAGE_URL} from "../../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
@@ -80,7 +80,7 @@ const CompAvatar = () => {
         })
     };
 
-    const avatarIMG = `${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${AdminCompStore.compOne.avatar}`
+    const avatarIMG = `${STORAGE_URL}/${AdminCompStore.compOne.avatar}`
 
 
     return (
