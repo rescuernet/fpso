@@ -8,6 +8,7 @@ import doc from "../../../common/assets/image/icons/doc.png";
 import docx from "../../../common/assets/image/icons/docx.png";
 import xls from "../../../common/assets/image/icons/xls.png";
 import xlsx from "../../../common/assets/image/icons/xlsx.png";
+import lxf from "../../../common/assets/image/icons/lxf.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {observer} from "mobx-react-lite";
 import AdminTeamStore from "../../../bll/admin/admin-team-store";
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Icon = {xls, xlsx, doc, docx, pdf}
+const Icon = {xls, xlsx, doc, docx, pdf, lxf}
 
 const AdminTeamDocsItem = (props) => {
     const classes = useStyles();

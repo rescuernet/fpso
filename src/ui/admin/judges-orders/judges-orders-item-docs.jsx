@@ -7,6 +7,7 @@ import doc from "../../../common/assets/image/icons/doc.png";
 import docx from "../../../common/assets/image/icons/docx.png";
 import xls from "../../../common/assets/image/icons/xls.png";
 import xlsx from "../../../common/assets/image/icons/xlsx.png";
+import lxf from "../../../common/assets/image/icons/lxf.png";
 
 const useStyles = makeStyles((theme) => ({
     itemWrap: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         }
     }
 }))
-const Icon = {xls, xlsx, doc, docx, pdf}
+const Icon = {xls, xlsx, doc, docx, pdf, lxf}
 
 const JudgesOrdersItemDocs = ({docs}) => {
     const classes = useStyles();

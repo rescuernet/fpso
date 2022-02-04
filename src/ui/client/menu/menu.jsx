@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
     },
     menuIcon: {
         fontSize: 40,
-        /*'@media (max-width: 750px)': {
+        '@media (max-width: 750px)': {
             fontSize: 30,
-        },*/
+        },
     },
     divider: {
         backgroundColor: "#ff6200"
@@ -102,12 +102,12 @@ const Menu = (props) => {
                         {i.menu.title}
                     </ListItem>)
                 )}
-                <ListItem
+                {/*<ListItem
                     button key={'admin' + 1}
                     onClick={()=> setLink('/5070/login/')}
                 >
                     {'admin'}
-                </ListItem>
+                </ListItem>*/}
             </List>
         </Box>
     );

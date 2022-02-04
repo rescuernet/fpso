@@ -89,7 +89,7 @@ const Comp = () => {
                 </div>
                 {compItem &&
                     <>
-                        {pagesCount === 1 &&
+                        {pagesCount > 1 &&
                             <div className={classes.paginationTop}>
                                 <Pagination
                                     count={pagesCount}
