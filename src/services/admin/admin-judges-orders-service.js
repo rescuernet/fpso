@@ -26,7 +26,6 @@ export default class AdminJudgesOrdersService {
     }
 
     static async judges_orders_delete(id) {
-        console.log(989898)
         return $api.post(ADM_API_RM.Judges_Orders__Delete.path,{id})
     }
 

@@ -27,6 +27,7 @@ const NewsDocs = ({newsId}) => {
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminNewsStore.newsDocsCreate(data,originName)})
+            event.target.value = ''
         })
     };
     //удаление одного документа
@@ -37,11 +38,13 @@ const NewsDocs = ({newsId}) => {
         })
     };
 
+    const docsCount = AdminNewsStore.newsOne?.docs && AdminNewsStore.newsOne.docs.length
+
     return (
         <div className={classes.docs}>
             {
                 AdminNewsStore.newsOne.docs && AdminNewsStore.newsOne.docs.map((item,index)=>(
-                    <NewsDocsItem key={'docs'+index} item={item} index={index} newsId={newsId} DeleteOneDocs={DeleteOneDocs}/>
+                    <NewsDocsItem key={'docs'+index} item={item} index={index} newsId={newsId} DeleteOneDocs={DeleteOneDocs} docsCount={docsCount}/>
                 ))
             }
             <div className={classes.docsAdd}>

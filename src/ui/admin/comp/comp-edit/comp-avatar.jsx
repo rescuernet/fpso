@@ -69,8 +69,8 @@ const CompAvatar = () => {
         data.append('files',event.target.files[0]);
         runInAction(async () => {
             await AdminCompStore.compAvatarCreate(data)
+            event.target.value = ''
         })
-        event.target.value = ''
     };
     //удаление аватара
     const DeleteAvatar = () => {

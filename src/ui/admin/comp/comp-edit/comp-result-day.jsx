@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
-import CompResultItemDocs from "./comp-result-day-docs";
+import CompResultDayDocs from "./comp-result-day-docs";
 import {TextField} from "@material-ui/core";
 import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
 import {runInAction} from "mobx";
@@ -55,7 +55,7 @@ const CompResultDay = ({index,compId,item}) => {
                 />
             </div>
 
-            <CompResultItemDocs indexDay={index} compId={compId}/>
+            {/*<CompResultDayDocs indexDay={index} compId={compId}/>*/}
         </div>
     );
 };

@@ -93,7 +93,7 @@ class AdminJudgesOrdersStore {
             runInAction(() => {this.judgesOrders.one.docs.push({title:originName,doc:response.data.doc})})
             Store.setMediaDelTmp(response.data.doc)
         } catch (e) {
-            runInAction(() => {this.news_tmp_errors =
+            runInAction(() => {this.tmp_errors =
                 <div>
                     <div>Документ не загрузился!</div>
                     <div>Максимальный размер 10 мб</div>
@@ -120,7 +120,6 @@ class AdminJudgesOrdersStore {
             let tmp = this.judgesOrders.one
             tmp.judges = []
             tmp.tmpName.map((i) => tmp.judges.push(i.peopleId))
-            tmp.tmp = false
             const response = await AdminJudgesOrdersService.judges_orders_save({data: tmp,mediaDel: this.mediaDel})
             if(response.data?.error){
                 runInAction(() => {

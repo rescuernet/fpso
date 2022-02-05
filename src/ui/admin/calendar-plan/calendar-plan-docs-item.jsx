@@ -12,6 +12,9 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {observer} from "mobx-react-lite";
 import AdminCalendarPlanStore from "../../../bll/admin/admin-calendar-plan-store";
 import {STORAGE_URL} from "../../../const/const";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import {moveItemDown, moveItemUp} from "../../../utils/up-down-item";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const useStyles = makeStyles((theme) => ({
     item: {
@@ -48,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
             color: '#000000de'
         }
     },
+    move: {
+        display: "flex",
+        flexDirection: "column"
+    }
 }))
 
 const Icon = {xls, xlsx, doc, docx, pdf, lxf}
@@ -94,6 +101,20 @@ const AdminCalendarPlanDocsItem = (props) => {
                         }}
                         color={'error'}
                     />
+                    {props.docsCount > 1 && (
+                        <>
+                            <Divider orientation={"vertical"} flexItem={true}/>
+                            <div className={classes.move}>
+                                {props.index > 0 && (
+                                    <ArrowDropUpIcon onClick={()=>{moveItemUp(props.index,AdminCalendarPlanStore.plan.docs)}}/>
+                                )}
+                                {props.index + 1 < props.docsCount && (
+                                    <ArrowDropDownIcon onClick={()=>{moveItemDown(props.index,AdminCalendarPlanStore.plan.docs)}}/>
+                                )}
+                            </div>
+                        </>
+
+                    )}
                 </>
             )}
         </div>

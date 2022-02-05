@@ -9,7 +9,7 @@ import lxf from "../../../common/assets/image/icons/lxf.png";
 import {STORAGE_URL} from "../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
-    itemWrap: {
+    wrapper: {
         display: "flex",
         marginBottom: 20
     },
@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const RusadaItemDocs = ({docs}) => {
+const AboutUsItemDocs = ({docs}) => {
     const classes = useStyles();
     const Icon = {xls, xlsx, doc, docx, pdf, lxf}
     const extension = docs.doc.slice(docs.doc.lastIndexOf(".") + 1)
 
     return (
-        <div className={classes.itemWrap}>
+        <div className={classes.wrapper}>
             <a href={`${STORAGE_URL}/${docs.doc}`} target={'_blank'} rel="noreferrer">
                 <div className={classes.item}>
                     <img src={Icon[extension]} alt="" width={30}/>
@@ -39,4 +39,4 @@ const RusadaItemDocs = ({docs}) => {
     );
 };
 
-export default RusadaItemDocs;
+export default AboutUsItemDocs;

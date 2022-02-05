@@ -31,8 +31,8 @@ const NewsImages = ({newsId}) => {
         data.append('newsId',newsId);
         runInAction( async () => {
             await runInAction(()=>{AdminNewsStore.newsImageCreate(data)})
+            event.target.value = ''
         })
-        event.target.value = ''
     };
 
     //удаление одной фоографии

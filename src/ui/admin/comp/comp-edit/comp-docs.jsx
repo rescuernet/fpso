@@ -43,6 +43,7 @@ const CompDocs = ({compId}) => {
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminCompStore.compDocsCreate(data,originName,section)})
+            event.target.value = ''
         })
     };
 

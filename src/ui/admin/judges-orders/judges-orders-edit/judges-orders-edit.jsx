@@ -121,7 +121,6 @@ const JudgesOrdersEdit = (props) => {
 
     const order = AdminJudgesOrdersStore.judgesOrders.one
 
-
     const addJudges = () => {
         setOpen(true)
     }
@@ -152,6 +151,8 @@ const JudgesOrdersEdit = (props) => {
             history.push(ADM_RM.Judges_Orders.path)
         }
     }
+
+
 
     return (
         <AdminPageWrapper
@@ -251,7 +252,9 @@ const JudgesOrdersEdit = (props) => {
                                     label={order?.view && order.view ? 'отображать' : 'не отображать'}
                                 />
                                 <Button className={classes.button} variant={"contained"} color={"primary"} onClick={()=>{saveOrder()}}>Сохранить</Button>
-                                <Button className={classes.button} variant={"contained"} color={"secondary"} onClick={()=>{orderDelete()}}>удалить</Button>
+                                {!order.tmp && (
+                                    <Button className={classes.button} variant={"contained"} color={"secondary"} onClick={()=>{orderDelete()}}>удалить</Button>
+                                )}
                             </>
                         )}
                         <Button className={classes.button} variant={"outlined"} color={"primary"} onClick={()=>{cancel()}}>Отмена</Button>

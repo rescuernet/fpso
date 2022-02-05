@@ -34,12 +34,13 @@ const CompResultDayDocs = ({indexDay,compId}) => {
             name:'results',
             day: indexDay
         }
-        const originName = event.target.files[0].name.substr(0,event.target.files[0].name.lastIndexOf("."))
+        const originName = event.target.files[0].name.substring(0,event.target.files[0].name.lastIndexOf("."))
         const data = new FormData()
         data.append('files',event.target.files[0]);
         data.append('compId',compId);
         runInAction( async () => {
             await runInAction(()=>{AdminCompStore.compDocsCreate(data,originName,section)})
+            event.target.value = ''
         })
     };
 
@@ -56,7 +57,7 @@ const CompResultDayDocs = ({indexDay,compId}) => {
                             item={item}
                             index={index}
                             indexDay={indexDay}
-                            compId={compId}/>
+                        />
                     ))}
                 </>
             }

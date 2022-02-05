@@ -7,8 +7,8 @@ import {runInAction, toJS} from "mobx";
 import RusadaDocsItem from "./rusada-docs-item";
 import AdminRusadaStore from "../../../bll/admin/admin-rusada-store";
 import {ErrorAlert} from "../calendar-plan/error-alert";
-import {useHistory} from "react-router-dom";
 import Store from "../../../bll/store";
+import AdminAboutUsStore from "../../../bll/admin/admin-about-us-store";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -53,11 +53,12 @@ const Rusada = (props) => {
     //загрузка документов
     const UploadDocs = (event) => {
         event.preventDefault();
-        const originName = event.target.files[0].name.substr(0,event.target.files[0].name.lastIndexOf("."))
+        const originName = event.target.files[0].name.substring(0,event.target.files[0].name.lastIndexOf("."))
         const data = new FormData()
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminRusadaStore.rusadaDocsCreate(data,originName)})
+            event.target.value = ''
         })
     };
 
@@ -68,6 +69,8 @@ const Rusada = (props) => {
             await Store.sendMediaDelTmp()
         }
     };
+
+    const docsCount = AdminRusadaStore.rusada?.docs && AdminRusadaStore.rusada.docs.length
 
     return (
         <AdminPageWrapper title={'Антидопинг'}>
@@ -133,7 +136,7 @@ const Rusada = (props) => {
                     <div className={classes.docs}>
                         {
                             docs.map((item,index)=>(
-                                <RusadaDocsItem key={'docs'+index} item={item} index={index}/>
+                                <RusadaDocsItem key={'docs'+index} item={item} index={index} docsCount={docsCount}/>
                             ))
                         }
                     </div>

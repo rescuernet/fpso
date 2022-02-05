@@ -1,14 +1,14 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
 import pdf from "../../../../common/assets/image/icons/pdf.png";
 import doc from "../../../../common/assets/image/icons/doc.png";
 import docx from "../../../../common/assets/image/icons/docx.png";
 import xls from "../../../../common/assets/image/icons/xls.png";
 import xlsx from "../../../../common/assets/image/icons/xlsx.png";
+import lxf from "../../../../common/assets/image/icons/lxf.png";
+import {STORAGE_URL} from "../../../../const/const";
 
-const Icon = {xls, xlsx, doc, docx, pdf}
 
 const useStyles = makeStyles((theme) => ({
     wrap: {
@@ -38,11 +38,12 @@ const useStyles = makeStyles((theme) => ({
 
 const NewsViewItemDoc = ({item}) => {
     const classes = useStyles();
+    const Icon = {xls, xlsx, doc, docx, pdf, lxf}
     const extension = item.doc.slice(item.doc.lastIndexOf(".") + 1)
 
     return (
         <div className={classes.wrap}>
-            <a href={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${item.doc}`} target={'_blank'} rel="noreferrer">
+            <a href={`${STORAGE_URL}/${item.doc}`} target={'_blank'} rel="noreferrer">
                 <div className={classes.docsItem}>
                     <img src={Icon[extension]} alt="" width={40}/>
                     <div className={classes.title}>{item.title}</div>

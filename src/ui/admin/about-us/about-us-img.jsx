@@ -37,8 +37,8 @@ const AdminAboutUSImg = ({newsId}) => {
         data.append('newsId',newsId);
         runInAction( async () => {
             await runInAction(()=>{AdminAboutUsStore.aboutUsImgCreate(data)})
+            event.target.value = ''
         })
-        event.target.value = ''
     };
 
     //удаление одной фоографии

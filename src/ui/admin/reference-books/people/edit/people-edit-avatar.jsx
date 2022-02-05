@@ -1,10 +1,10 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../../const/const";
 import {runInAction} from "mobx";
 import {observer} from "mobx-react-lite";
 import AdminReferenceBooksStore from "../../../../../bll/admin/admin-reference-books-store";
+import {STORAGE_URL} from "../../../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     description: {
@@ -79,8 +79,8 @@ const PeopleAvatar = () => {
         data.append('files',event.target.files[0]);
         runInAction(async () => {
             await AdminReferenceBooksStore.peopleAvatarCreate(data)
+            event.target.value = ''
         })
-        event.target.value = ''
     };
     //удаление аватара
     const DeleteAvatar = () => {
@@ -90,7 +90,7 @@ const PeopleAvatar = () => {
         })
     };
 
-    const avatarIMG = `${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${AdminReferenceBooksStore.referenceBooks.people.one.avatar}`
+    const avatarIMG = `${STORAGE_URL}/${AdminReferenceBooksStore.referenceBooks.people.one.avatar}`
 
 
     return (

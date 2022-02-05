@@ -2,9 +2,9 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import AdminNewsStore from "../../../../bll/admin/admin-news-store";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
 import {runInAction} from "mobx";
 import {observer} from "mobx-react-lite";
+import {STORAGE_URL} from "../../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
@@ -69,8 +69,8 @@ const NewsAvatar = ({newsId}) => {
         data.append('files',event.target.files[0]);
         runInAction(async () => {
             await AdminNewsStore.newsAvatarCreate(data)
+            event.target.value = ''
         })
-        event.target.value = ''
     };
     //удаление аватара
     const DeleteAvatar = () => {
@@ -80,7 +80,7 @@ const NewsAvatar = ({newsId}) => {
         })
     };
 
-    const avatarIMG = `${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${AdminNewsStore.newsOne.avatar}`
+    const avatarIMG = `${STORAGE_URL}/${AdminNewsStore.newsOne.avatar}`
 
     return (
         <div className={classes.avatar} id={'avatar'}>

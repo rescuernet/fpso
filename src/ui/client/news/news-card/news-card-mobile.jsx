@@ -3,8 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import s from '../news.module.css'
 import * as dateFns from "date-fns";
-import {HTTPS_PROTOCOL, YA_CRM_BUCKET, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
-import {Divider} from "@material-ui/core";
+import {SERVER_URL, STORAGE_URL} from "../../../../const/const";
 import {UI_RM} from "../../../../routes/ui-routes";
 import {NavLink} from "react-router-dom";
 
@@ -79,7 +78,7 @@ const useStyles = makeStyles({
 export const NewsCardMobile = ({news, index})=> {
     const classes = useStyles();
 
-    const avatarIMG = `${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${news.avatar}`
+    const avatarIMG = `${STORAGE_URL}/${news.avatar}`
 
     return (
         <div className={classes.root}>
@@ -92,8 +91,8 @@ export const NewsCardMobile = ({news, index})=> {
                         </div>
                     </div>
                     : index || index === 0
-                        ? <img src={`${HTTPS_PROTOCOL}${YA_CRM_BUCKET}.${YA_ENDPOINT}/nonewsavatar/${index}.jpg`} alt="" width="300" height="300"/>
-                        : <img src={`${HTTPS_PROTOCOL}${YA_CRM_BUCKET}.${YA_ENDPOINT}/nonewsavatar/${Math.floor(Math.random() * 10)}.jpg`} alt="" width="300" height="300"/>
+                        ? <img src={`${SERVER_URL}/crm/news/noava/${index}.jpg`} alt="" width="300" height="300"/>
+                        : <img src={`${SERVER_URL}/crm/news/noava/${Math.floor(Math.random() * 10)}.jpg`} alt="" width="300" height="300"/>
                 }
             </div>
             <div className={classes.header}>

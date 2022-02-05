@@ -33,13 +33,16 @@ const JudgesOrdersDocs = ({compId}) => {
     //загрузка документов
     const UploadDocs = (event) => {
         event.preventDefault();
-        const originName = event.target.files[0].name.substr(0,event.target.files[0].name.lastIndexOf("."))
+        const originName = event.target.files[0].name.substring(0,event.target.files[0].name.lastIndexOf("."))
         const data = new FormData()
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminJudgesOrdersStore.judgesOrdersDocsCreate(data,originName)})
+            event.target.value = ''
         })
     };
+
+    const docsCount = AdminJudgesOrdersStore.judgesOrders.one?.docs && AdminJudgesOrdersStore.judgesOrders.one.docs.length
 
     return (
         <div className={classes.docs}>
@@ -48,7 +51,7 @@ const JudgesOrdersDocs = ({compId}) => {
             </div>
             {
                 AdminJudgesOrdersStore.judgesOrders.one.docs.map((item,index)=>(
-                    <JudgesOrdersDocsItem key={'docs'+index} item={item} index={index} compId={compId}/>
+                    <JudgesOrdersDocsItem key={'docs'+index} item={item} index={index} docsCount={docsCount}/>
                 ))
             }
             <div className={classes.docsAdd}>

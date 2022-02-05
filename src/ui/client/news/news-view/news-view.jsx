@@ -3,13 +3,13 @@ import {observer} from "mobx-react-lite";
 import {runInAction, toJS} from "mobx";
 import {useParams} from "react-router-dom";
 import UiNewsStore from "../../../../bll/ui/ui-news-store";
-import {HTTPS_PROTOCOL, YA_CRM_BUCKET, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
 import {Divider} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import s from "./news-view.module.css"
 import NewsViewItemDoc from "./news-view-item-doc";
 import UiPageWrapper from "../../ui-page-wrapper";
 import BpContainer from "../../bp-container";
+import {SERVER_URL, STORAGE_URL} from "../../../../const/const";
 
 const useStyles = makeStyles({
     root: {
@@ -143,12 +143,12 @@ const NewsView = () => {
                                 <div className={classes.avatar}>
                                     {news.avatar
                                         ? <div className={classes.img}>
-                                            <img className={classes.imgOrig} src={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${news.avatar}`} alt=""/>
+                                            <img className={classes.imgOrig} src={`${STORAGE_URL}/${news.avatar}`} alt=""/>
                                             <div className={classes.imgBackWrapper}>
-                                                <img className={classes.imgBack} src={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${news.avatar}`} alt=""/>
+                                                <img className={classes.imgBack} src={`${STORAGE_URL}/${news.avatar}`} alt=""/>
                                             </div>
                                         </div>
-                                        : <img src={`${HTTPS_PROTOCOL}${YA_CRM_BUCKET}.${YA_ENDPOINT}/nonewsavatar/${Math.floor(Math.random() * 10)}.jpg`} alt=""/>
+                                        : <img src={`${SERVER_URL}/crm/news/noava/${Math.floor(Math.random() * 10)}.jpg`} alt=""/>
                                     }
                                 </div>
                                 <div>
@@ -177,7 +177,7 @@ const NewsView = () => {
                             {news.images.length > 0 &&
                                 <div className={classes.images}>
                                     {news.images.map((item,index) => (
-                                        <img key={'images' + index} src={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${item}`} alt=""/>
+                                        <img key={'images' + index} src={`${STORAGE_URL}/${item}`} alt=""/>
                                     ))}
                                 </div>
                             }

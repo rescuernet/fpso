@@ -5,7 +5,9 @@ import UiPageWrapper from "../ui-page-wrapper";
 import BpContainer from "../bp-container";
 import {runInAction, toJS} from "mobx";
 import UiAboutUsStore from "../../../bll/ui/ui-about-us-store";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../const/const";
+import {STORAGE_URL} from "../../../const/const";
+import AboutUsItemDocs from "./about-us-item-docs";
+import {Divider} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -18,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     header: {
         fontSize: '200%',
         textAlign: "center",
-        marginBottom: 30,
+        marginBottom: 40,
         '@media (max-width: 750px)': {
             fontSize: '150%',
         },
@@ -27,10 +29,22 @@ const useStyles = makeStyles((theme) => ({
     text: {
         textAlign: "justify",
         lineHeight: '1.5',
-        marginBottom: 30
+        marginBottom: 30,
+        paddingBottom: 20,
+        borderBottom: '1px solid #c4c4c4'
     },
     contact: {
+        marginBottom: 40,
+        paddingBottom: 20,
+        borderBottom: '1px solid #c4c4c4'
+    },
+    contactItem: {
         marginBottom: 20
+    },
+    docs: {
+        marginBottom: 40,
+        paddingBottom: 20,
+        borderBottom: '1px solid #c4c4c4'
     },
     img: {
         display: "flex",
@@ -62,18 +76,28 @@ const AboutUs = (props) => {
                 {aboutUs && (
                     <div className={classes.wrapper}>
                         <div className={classes.header}>{aboutUs.header}</div>
-                        <div className={classes.text}>{aboutUs.text}</div>
-                        <div className={classes.contact}>{aboutUs.address}</div>
-                        <div className={classes.contact}>{aboutUs.telephone}</div>
-                        <div className={classes.contact}>{aboutUs.email}</div>
-                        {aboutUs.docs.length > 0 && aboutUs.docs.map((i)=>(
-                            <div>{i.title}</div>
-                        ))}
+                        {aboutUs.text && (
+                            <div className={classes.text}>{aboutUs.text}</div>
+                        )}
+
+                        <div className={classes.contact}>
+                            <div className={classes.contactItem}>{aboutUs.address}</div>
+                            <div className={classes.contactItem}>{aboutUs.telephone}</div>
+                            <div className={classes.contactItem}>{aboutUs.email}</div>
+                        </div>
+
+                        {aboutUs.docs.length > 0 && (
+                            <div className={classes.docs}>
+                                {aboutUs.docs.map((i,index)=>(
+                                    <AboutUsItemDocs key={index} docs={i}/>
+                                ))}
+                            </div>
+                        )}
                         {aboutUs.img.length > 0 && (
                             <div className={classes.img}>
                                 {aboutUs.img.map((i)=>(
-                                    <a href={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${i}`} target={'_blank'}>
-                                        <img src={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${i}`} alt="" width={widthImg}/>
+                                    <a href={`${STORAGE_URL}/${i}`} target={'_blank'}>
+                                        <img src={`${STORAGE_URL}/${i}`} alt="" width={widthImg}/>
                                     </a>
                                 ))}
                             </div>

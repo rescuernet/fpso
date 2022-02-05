@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Divider, TextField} from "@material-ui/core";
 import AdminNewsStore from "../../../../bll/admin/admin-news-store";
 import {runInAction} from "mobx";
-import {HTTPS_PROTOCOL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
+import {STORAGE_URL} from "../../../../const/const";
 import pdf from "../../../../common/assets/image/icons/pdf.png";
 import doc from "../../../../common/assets/image/icons/doc.png";
 import docx from "../../../../common/assets/image/icons/docx.png";
@@ -12,6 +12,9 @@ import xlsx from "../../../../common/assets/image/icons/xlsx.png";
 import lxf from "../../../../common/assets/image/icons/lxf.png";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {observer} from "mobx-react-lite";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import {moveItemDown, moveItemUp} from "../../../../utils/up-down-item";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const useStyles = makeStyles((theme) => ({
     docsItem: {
@@ -45,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
             flexGrow: 1
         },
     },
+    move: {
+        display: "flex",
+        flexDirection: "column"
+    }
 }))
 
 const Icon = {xls, xlsx, doc, docx, pdf, lxf}
@@ -70,13 +77,27 @@ const NewsDocsItem = (props) => {
                 minRows={1}
                 maxRows={10}
             />
-            <a href={`${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
+            <a href={`${STORAGE_URL}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
                 <img src={Icon[extension]} alt=""/>
             </a>
             <Divider orientation={"vertical"} flexItem={true}/>
             <HighlightOffIcon onClick={() => {
                 props.DeleteOneDocs(props.index,props.item.doc)
             }} color={'error'}/>
+            {props.docsCount > 1 && (
+                <>
+                    <Divider orientation={"vertical"} flexItem={true}/>
+                    <div className={classes.move}>
+                        {props.index > 0 && (
+                            <ArrowDropUpIcon onClick={()=>{moveItemUp(props.index,AdminNewsStore.newsOne.docs)}}/>
+                        )}
+                        {props.index + 1 < props.docsCount && (
+                            <ArrowDropDownIcon onClick={()=>{moveItemDown(props.index,AdminNewsStore.newsOne.docs)}}/>
+                        )}
+                    </div>
+                </>
+
+            )}
         </div>
     );
 };

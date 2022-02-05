@@ -13,7 +13,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {observer} from "mobx-react-lite";
-import {SERVER_URL} from "../../../../const/const";
+import {SERVER_URL, STORAGE_URL} from "../../../../const/const";
 import {moveItemDown, moveItemUp} from "../../../../utils/up-down-item";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Icon = {xls, xlsx, doc, docx, pdf, lxf}
+
 
 //удаление одного документа
 const DeleteOneDocs = (docsId,docsName) => {
@@ -67,6 +67,7 @@ const DeleteOneDocs = (docsId,docsName) => {
 
 const CompDocsItem = (props) => {
     const classes = useStyles();
+    const Icon = {xls, xlsx, doc, docx, pdf, lxf}
     const extension = AdminCompStore.compOne.docs[props.index].doc.slice(AdminCompStore.compOne.docs[props.index].doc.lastIndexOf(".") + 1)
     return (
         <div className={classes.item}>
@@ -85,23 +86,25 @@ const CompDocsItem = (props) => {
                 minRows={1}
                 maxRows={10}
             />
-            <a href={`${SERVER_URL}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
+            <a href={`${STORAGE_URL}/${props.item.doc}`} target={'_blank'} rel="noreferrer">
                 <img src={Icon[extension]} alt="" />
             </a>
             <Divider orientation={"vertical"} flexItem={true}/>
             <HighlightOffIcon onClick={() => {
                 DeleteOneDocs(props.index,props.item.doc)
             }} color={'error'}/>
-            <Divider orientation={"vertical"} flexItem={true}/>
             {props.docsCount > 1 && (
-                <div className={classes.move}>
-                    {props.index > 0 && (
-                        <ArrowDropUpIcon onClick={()=>{moveItemUp(props.index,AdminCompStore.compOne.docs)}}/>
-                    )}
-                    {props.index + 1 < props.docsCount && (
-                        <ArrowDropDownIcon onClick={()=>{moveItemDown(props.index,AdminCompStore.compOne.docs)}}/>
-                    )}
-                </div>
+                <>
+                    <Divider orientation={"vertical"} flexItem={true}/>
+                    <div className={classes.move}>
+                        {props.index > 0 && (
+                            <ArrowDropUpIcon onClick={()=>{moveItemUp(props.index,AdminCompStore.compOne.docs)}}/>
+                        )}
+                        {props.index + 1 < props.docsCount && (
+                            <ArrowDropDownIcon onClick={()=>{moveItemDown(props.index,AdminCompStore.compOne.docs)}}/>
+                        )}
+                    </div>
+                </>
             )}
         </div>
     );

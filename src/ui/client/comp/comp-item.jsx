@@ -3,10 +3,10 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Box, Divider} from "@material-ui/core";
 import s from './comp.module.css'
 import * as dateFns from "date-fns";
-import {HTTPS_PROTOCOL, YA_CRM_BUCKET, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../const/const";
 import {NavLink} from "react-router-dom";
 import {UI_RM} from "../../../routes/ui-routes";
 import Button from "@material-ui/core/Button";
+import {SERVER_URL, STORAGE_URL} from "../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -98,13 +98,13 @@ const CompItem = ({comp,index}) => {
     const curDate = dateFns.format(new Date(), 'yyyy-MM-dd')
     const compDateEnd = dateFns.format(new Date(comp.dateEnd), 'yyyy-MM-dd')
 
-    const avatarIMG = `${HTTPS_PROTOCOL}${YA_PUBLIC_BUCKET}.${YA_ENDPOINT}/${comp.avatar}`
+    const avatarIMG = `${STORAGE_URL}/${comp.avatar}`
 
     return (
         <Box className={classes.root}>
             {curDate > compDateEnd &&
                 <div className={classes.compEndMedal}>
-                    <img src={`${HTTPS_PROTOCOL}${YA_CRM_BUCKET}.${YA_ENDPOINT}/medalsCompCard.png`} alt=""/>
+                    <img src={`${SERVER_URL}/crm/comp/medals.png`} alt=""/>
                 </div>
             }
             <div className={classes.avatar}>
@@ -116,7 +116,7 @@ const CompItem = ({comp,index}) => {
                                 <img className={classes.imgBack} src={avatarIMG} alt=""/>
                             </div>
                         </div>
-                        : <img src={`${HTTPS_PROTOCOL}${YA_CRM_BUCKET}.${YA_ENDPOINT}/nocompavatar.jpg`} alt=""/>
+                        : <img src={`${SERVER_URL}/crm/comp/noava/0.jpg`} alt=""/>
                 }
 
             </div>

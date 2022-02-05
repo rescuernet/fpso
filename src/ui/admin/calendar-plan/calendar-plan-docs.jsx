@@ -24,13 +24,17 @@ const AdminCalendarPlanDocs = () => {
     //загрузка документов
     const UploadDocs = (event) => {
         event.preventDefault();
-        const originName = event.target.files[0].name.substr(0,event.target.files[0].name.lastIndexOf("."))
+        const originName = event.target.files[0].name.substring(0,event.target.files[0].name.lastIndexOf("."))
         const data = new FormData()
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminCalendarPlanStore.calendarPlanDocsCreate(data,originName)})
+            event.target.value = ''
         })
     };
+
+    const docsCount = AdminCalendarPlanStore.plan?.docs && AdminCalendarPlanStore.plan.docs.length
+
 
     return (
         <div className={classes.docs}>
@@ -39,7 +43,7 @@ const AdminCalendarPlanDocs = () => {
             )}
             {
                 AdminCalendarPlanStore.plan.docs.map((item,index)=>(
-                    <AdminCalendarPlanDocsItem key={'docs'+index} item={item} index={index}/>
+                    <AdminCalendarPlanDocsItem key={'docs'+index} item={item} index={index} docsCount={docsCount}/>
                 ))
             }
             {AdminCalendarPlanStore.plan.edit && (

@@ -29,8 +29,11 @@ const AdminTeamDocs = () => {
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminTeamStore.teamDocsCreate(data,originName)})
+            event.target.value = ''
         })
     };
+
+    const docsCount = AdminTeamStore.team?.docs && AdminTeamStore.team.docs.length
 
     return (
         <div className={classes.docs}>
@@ -39,7 +42,7 @@ const AdminTeamDocs = () => {
             )}
             {
                 AdminTeamStore.team.docs.map((item,index)=>(
-                    <AdminTeamDocsItem key={'docs'+index} item={item} index={index}/>
+                    <AdminTeamDocsItem key={'docs'+index} item={item} index={index} docsCount={docsCount}/>
                 ))
             }
             {AdminTeamStore.team.edit && (

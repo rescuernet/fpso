@@ -24,13 +24,16 @@ const AdminAboutUsDocs = ({compId}) => {
     //загрузка документов
     const UploadDocs = (event) => {
         event.preventDefault();
-        const originName = event.target.files[0].name.substr(0,event.target.files[0].name.lastIndexOf("."))
+        const originName = event.target.files[0].name.substring(0,event.target.files[0].name.lastIndexOf("."))
         const data = new FormData()
         data.append('files',event.target.files[0]);
         runInAction( async () => {
             await runInAction(()=>{AdminAboutUsStore.aboutUsDocsCreate(data,originName)})
+            event.target.value = ''
         })
     };
+
+    const docsCount = AdminAboutUsStore.aboutUs?.docs && AdminAboutUsStore.aboutUs.docs.length
 
     return (
         <div className={classes.docs}>
@@ -39,7 +42,7 @@ const AdminAboutUsDocs = ({compId}) => {
             )}
             {
                 AdminAboutUsStore.aboutUs.docs.map((item,index)=>(
-                    <AdminAboutUsDocsItem key={'docs'+index} item={item} index={index}/>
+                    <AdminAboutUsDocsItem key={'docs'+index} item={item} index={index} docsCount={docsCount}/>
                 ))
             }
             {AdminAboutUsStore.aboutUs.edit && (
