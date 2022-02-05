@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import {HTTPS_PROTOCOL, STORAGE_URL, YA_ENDPOINT, YA_PUBLIC_BUCKET} from "../../../../const/const";
+import {STORAGE_URL} from "../../../../const/const";
 
 const useStyles = makeStyles((theme) => ({
     imagesItem: {

@@ -29,7 +29,6 @@ class AdminCompetitionsStore {
         try {
             const response = await AdminCompetitionsService.compCreate();
             if(response.data?.error){
-                console.log(response.data.error)
                 return 'ERROR'
             }else{
                 runInAction(() => {

@@ -62,7 +62,6 @@ class AdminReferenceBooksStore {
         try {
             const response = await AdminReferenceBooksService.pools_create()
             if(response.data?.error){
-                console.log(response.data.error)
                 return 'ERROR'
             }else{
                 runInAction(() => {
@@ -122,7 +121,6 @@ class AdminReferenceBooksStore {
         try {
             const response = await AdminReferenceBooksService.people_create()
             if(response.data?.error){
-                console.log(response.data.error)
                 return 'ERROR'
             }else{
                 runInAction(() => {

@@ -25,7 +25,6 @@ class AdminRusadaStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminRusadaService.rusada_get()
-            console.log(response)
             runInAction(() => {
                 this.rusada = response.data
                 this.rusada.edit = false

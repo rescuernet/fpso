@@ -30,7 +30,6 @@ class AdminNewsStore {
         try {
             const response = await AdminNewsService.newsCreate();
             if(response.data?.error){
-                console.log(response.data.error)
                 return 'ERROR'
             }else{
                 runInAction(() => {

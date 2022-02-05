@@ -35,7 +35,6 @@ class AdminJudgesOrdersStore {
         try {
             const response = await AdminJudgesOrdersService.judges_orders_create()
             if(response.data?.error){
-                console.log(response.data.error)
                 return 'ERROR'
             }else{
                 this.judgesOrders.id = response.data
