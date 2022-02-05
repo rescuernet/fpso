@@ -9,12 +9,16 @@ import UiCalendarPlanStore from "../../../../bll/ui/ui-calendar-plan-store";
 import CalendarPlanItemDocs from "./calendar-plan-item-docs";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    plan: {
         display: "flex",
         justifyContent: "center"
     },
     wrapper: {
         width: 600,
+        '@media (max-width: 750px)': {
+            maxWidth: 360,
+            padding: "0 10px"
+        },
     },
     header: {
         fontSize: '150%',
@@ -45,7 +49,7 @@ const CalendarPlan = (props) => {
             <BpContainer>
                 <Rusada/>
                 {plan && (
-                    <div className={classes.root}>
+                    <div className={classes.plan}>
                         <div className={classes.wrapper}>
                             <div className={classes.header}>{`Календарный план на ${plan.year} год`}</div>
                             {plan.text && (

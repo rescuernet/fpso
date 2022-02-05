@@ -12,24 +12,19 @@ import {NavLink} from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     wrapper: {
-        backgroundColor: '#fff',
-        overflow: "hidden"
     },
     header: {
         display: "flex",
+        justifyContent: "space-evenly",
         marginTop: 20,
         marginBottom: 20,
-        justifyContent: "space-evenly",
+        width: '100%',
         borderBottom: '1px solid #ccc',
         '@media (max-width: 1280px)': {
             alignItems: 'center',
             '& img': {
                 width: 200,
                 height: 'auto',
-                '@media (max-width: 750px)': {
-                    flexDirection: 'column',
-                    marginBottom: 10,
-                },
             }
         },
         '@media (max-width: 750px)': {
@@ -55,14 +50,15 @@ const useStyles = makeStyles(() => ({
             marginBottom: 15
         },
     },
-    docs: {
-        margin: '0 auto',
-    },
     rusada: {
         maxWidth: 600,
-        margin: '0 auto'
+        padding: "0 10px",
+        margin: '0 auto',
+        marginBottom: 40
     },
     rusadaSite: {
+        maxWidth: 600,
+        margin: '0 auto',
         display: "flex",
         alignItems: 'center',
         justifyContent: "space-evenly",
@@ -84,6 +80,9 @@ const useStyles = makeStyles(() => ({
         '&:hover > div': {
             color: '#ff6500'
         }
+    },
+    docs: {
+        margin: '0 auto',
     },
 }))
 
@@ -111,13 +110,16 @@ const Rusada = (props) => {
                             <div>АНТИДОПИНГОВЫХ ПРАВИЛ!</div>
                         </div>
                     </div>
+
+                    <NavLink to={{pathname:"https://rusada.ru/"}} target="_blank">
+                        <div className={classes.rusadaSite}>
+                            <img src={Rusada_small} alt="" width={150}/>
+                            <div>Перейти на сайт РУСАDA</div>
+                        </div>
+                    </NavLink>
+
                     <div className={classes.rusada}>
-                        <NavLink to={{pathname:"https://rusada.ru/"}} target="_blank">
-                            <div className={classes.rusadaSite}>
-                                <img src={Rusada_small} alt="" width={150}/>
-                                <div>Перейти на сайт РУСАDA</div>
-                            </div>
-                        </NavLink>
+
                         {UiRusadaStore.rusada && (
                             <div className={classes.docs}>
                                 {rusada.docs.map((item,index)=>(

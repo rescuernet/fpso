@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         flexDirection: "column",
         width: 300,
         marginBottom: 30,
-        borderRadius: 10,
+        borderRadius: 5,
         overflow: 'hidden',
     },
     avatar: {

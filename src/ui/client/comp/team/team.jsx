@@ -10,12 +10,16 @@ import UiTeamStore from "../../../../bll/ui/ui-team-store";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    team: {
         display: "flex",
         justifyContent: "center"
     },
     wrapper: {
         width: 600,
+        '@media (max-width: 750px)': {
+            maxWidth: 360,
+            padding: "0 10px"
+        },
     },
     header: {
         fontSize: '150%',
@@ -46,7 +50,7 @@ const Team = (props) => {
             <BpContainer>
                 <Rusada/>
                 {team && (
-                    <div className={classes.root}>
+                    <div className={classes.team}>
                         <div className={classes.wrapper}>
                             <div className={classes.header}>{`Сборная на ${team.year} год`}</div>
                             {team.text && (

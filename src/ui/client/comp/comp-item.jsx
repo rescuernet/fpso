@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         width: '100%',
         textAlign: "center",
-        zIndex: 1000
+        zIndex: 1001
     },
     avatar: {
         fontSize: 0,
