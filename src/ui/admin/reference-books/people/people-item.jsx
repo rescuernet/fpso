@@ -109,7 +109,7 @@ const PeopleItem = () => {
                             <td className={classes.roles}>
                                 {i.role.map((i)=> {
                                     let res = Role.find((item => item.value === i))
-                                    return (<div key={i.value}>{res.title}</div>)
+                                    return (<div key={i.value+res.title}>{res.title}</div>)
                                 })}
                             </td>
                             <td>{`${i.surname} ${i.name} ${i.patronymic}`}</td>

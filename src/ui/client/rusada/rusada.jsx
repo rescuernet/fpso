@@ -5,7 +5,7 @@ import UiPageWrapper from "../ui-page-wrapper";
 import BpContainer from "../bp-container";
 import Antidoping from '../../../common/assets/image/antidoping.png'
 import Rusada_small from '../../../common/assets/image/RUSADA_small.jpg'
-import {runInAction, toJS} from "mobx";
+import {runInAction} from "mobx";
 import UiRusadaStore from "../../../bll/ui/ui-rusada-store";
 import RusadaItemDocs from "./rusada-item-docs";
 import {NavLink} from "react-router-dom";

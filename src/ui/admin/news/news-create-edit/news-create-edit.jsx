@@ -62,7 +62,6 @@ const NewsCreateEdit = () => {
     const history = useHistory();
     const { id } = useParams();
 
-
     useEffect(()=>{
         runInAction(async () => {
             await Store.sendMediaDelTmp()

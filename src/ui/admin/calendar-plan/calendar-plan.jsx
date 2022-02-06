@@ -3,15 +3,12 @@ import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import AdminPageWrapper from "../admin-page-wrapper";
 import AdminCalendarPlanStore from "../../../bll/admin/admin-calendar-plan-store";
-import {runInAction, toJS} from "mobx";
+import {runInAction,} from "mobx";
 import AdminCalendarPlanFields from "./calendar-plan-fields";
 import {Button} from "@material-ui/core";
 import Store from "../../../bll/store";
 import AdminCalendarPlanDocs from "./calendar-plan-docs";
 import {ErrorAlert} from "./error-alert";
-import AdminCompStore from "../../../bll/admin/admin-competitions-store";
-import {ADM_RM} from "../../../routes/admin-routes";
-import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -31,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CalendarPlan = (props) => {
     const classes = useStyles();
-    const history = useHistory();
 
     useEffect(()=>{
         runInAction(async () => {

@@ -32,10 +32,7 @@ class AdminAboutUsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
@@ -43,17 +40,20 @@ class AdminAboutUsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminAboutUsService.about_us_docs_create(doc);
-            runInAction(() => {this.aboutUs.docs.push({title:originName,doc:response.data.doc})})
-            Store.setMediaDelTmp(response.data.doc)
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Документ не загрузился!</div>
+                        <div>Максимальный размер 10 мб</div>
+                        <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.aboutUs.docs.push({title:originName,doc:response.data.doc})})
+                Store.setMediaDelTmp(response.data.doc)
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Документ не загрузился!</div>
-                    <div>Максимальный размер 10 мб</div>
-                    <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -62,17 +62,20 @@ class AdminAboutUsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminAboutUsService.about_us_img_create(image);
-            runInAction(() => {this.aboutUs.img.push(response.data.name)})
-            Store.setMediaDelTmp(response.data.name)
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Изображение не загрузилось!</div>
+                        <div>Максимальный размер 4 мб</div>
+                        <div>Тип файла JPEG/JPG</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.aboutUs.img.push(response.data.name)})
+                Store.setMediaDelTmp(response.data.name)
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Изображение не загрузилось!</div>
-                    <div>Максимальный размер 4 мб</div>
-                    <div>Тип файла JPEG/JPG</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -101,10 +104,7 @@ class AdminAboutUsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 }

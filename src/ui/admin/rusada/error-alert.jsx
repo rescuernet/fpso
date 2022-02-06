@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import AdminRusadaStore from "../../../bll/admin/admin-rusada-store";
+import {runInAction} from "mobx";
 
 const useStyles = makeStyles((theme) => ({
     dialogPaper: {
@@ -26,7 +27,9 @@ export const ErrorAlert = (props) => {
             setOpen(false)
             setTimeout(props.close,500)
         }else{
-            AdminRusadaStore.tmp_errors = null
+            runInAction(()=>{
+                AdminRusadaStore.tmp_errors = null
+            })
             setOpen(false);
         }
 

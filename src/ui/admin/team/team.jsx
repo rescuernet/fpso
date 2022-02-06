@@ -3,13 +3,12 @@ import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import AdminPageWrapper from "../admin-page-wrapper";
 import AdminTeamStore from "../../../bll/admin/admin-team-store";
-import {runInAction, toJS} from "mobx";
+import {runInAction} from "mobx";
 import AdminTeamFields from "./team-fields";
 import {Button} from "@material-ui/core";
 import Store from "../../../bll/store";
 import AdminTeamDocs from "./team-docs";
 import {ErrorAlert} from "../calendar-plan/error-alert";
-import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Team = (props) => {
     const classes = useStyles();
-    const history = useHistory();
 
     useEffect(()=>{
         runInAction(async () => {

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         height: 510,
         backgroundColor: '#fff',
         border: '1px solid #c4c4c4',
-        marginBottom: 40,
+        margin: '0 10px 40px 10px',
         borderRadius: 5,
         overflow: "hidden",
         position: "relative"

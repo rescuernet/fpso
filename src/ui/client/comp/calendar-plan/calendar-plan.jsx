@@ -4,7 +4,7 @@ import {observer} from "mobx-react-lite";
 import UiPageWrapper from "../../ui-page-wrapper";
 import BpContainer from "../../bp-container";
 import Rusada from "../../rusada/rusada-poster";
-import {runInAction, toJS} from "mobx";
+import {runInAction} from "mobx";
 import UiCalendarPlanStore from "../../../../bll/ui/ui-calendar-plan-store";
 import CalendarPlanItemDocs from "./calendar-plan-item-docs";
 

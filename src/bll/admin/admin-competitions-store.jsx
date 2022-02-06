@@ -25,7 +25,6 @@ class AdminCompetitionsStore {
     }
 
     compCreate = async () => {
-        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminCompetitionsService.compCreate();
             if(response.data?.error){
@@ -39,10 +38,7 @@ class AdminCompetitionsStore {
             }
         } catch (e) {
             console.log(e)
-        } finally {
-            runInAction(() => {Store.isInit = true})
-            runInAction(() => {Store.isLoading = false})
-        }
+        } finally {}
     }
 
     getCompId = async (id) => {
@@ -56,7 +52,6 @@ class AdminCompetitionsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -65,19 +60,22 @@ class AdminCompetitionsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminCompetitionsService.compAvatarCreate(avatar);
-            runInAction(() => {
-                this.compOne.avatar = response.data.name
-                Store.setMediaDelTmp(response.data.name)
-            })
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Изображение не загрузилось!</div>
+                        <div>Максимальный размер 4 мб</div>
+                        <div>Тип файла JPEG/JPG</div>
+                    </div>})
+            }else{
+                runInAction(() => {
+                    this.compOne.avatar = response.data.name
+                    Store.setMediaDelTmp(response.data.name)
+                })
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Изображение не загрузилось!</div>
-                    <div>Максимальный размер 4 мб</div>
-                    <div>Тип файла JPEG/JPG</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -86,22 +84,25 @@ class AdminCompetitionsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminCompetitionsService.compDocsCreate(doc);
-            if(section.name === 'docs'){
-                runInAction(() => {this.compOne.docs.push({title:originName,doc:response.data.doc})})
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Документ не загрузился!</div>
+                        <div>Максимальный размер 10 мб</div>
+                        <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
+                    </div>})
+            }else{
+                if(section.name === 'docs'){
+                    runInAction(() => {this.compOne.docs.push({title:originName,doc:response.data.doc})})
+                }
+                if(section.name === 'results'){
+                    runInAction(() => {this.compOne.results[section.day].docs.push({title:originName,doc:response.data.doc})})
+                }
+                Store.setMediaDelTmp(response.data.doc)
             }
-            if(section.name === 'results'){
-                runInAction(() => {this.compOne.results[section.day].docs.push({title:originName,doc:response.data.doc})})
-            }
-            Store.setMediaDelTmp(response.data.doc)
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Документ не загрузился!</div>
-                    <div>Максимальный размер 10 мб</div>
-                    <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -146,7 +147,6 @@ class AdminCompetitionsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -165,7 +165,6 @@ class AdminCompetitionsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -181,10 +180,7 @@ class AdminCompetitionsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 

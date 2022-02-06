@@ -13,7 +13,7 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {observer} from "mobx-react-lite";
-import {SERVER_URL, STORAGE_URL} from "../../../../const/const";
+import {STORAGE_URL} from "../../../../const/const";
 import {moveItemDown, moveItemUp} from "../../../../utils/up-down-item";
 
 const useStyles = makeStyles((theme) => ({

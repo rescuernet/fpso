@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Button} from "@material-ui/core";
 import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
-import {runInAction, toJS} from "mobx";
+import {runInAction} from "mobx";
 import {observer} from "mobx-react-lite";
 import CompDocsItem from "./comp-docs-item";
 

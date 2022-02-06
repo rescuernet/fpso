@@ -3,12 +3,11 @@ import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import AdminPageWrapper from "../admin-page-wrapper";
 import {Button} from "@material-ui/core";
-import {runInAction, toJS} from "mobx";
-import RusadaDocsItem from "./rusada-docs-item";
+import {runInAction} from "mobx";
 import AdminRusadaStore from "../../../bll/admin/admin-rusada-store";
 import {ErrorAlert} from "../calendar-plan/error-alert";
 import Store from "../../../bll/store";
-import AdminAboutUsStore from "../../../bll/admin/admin-about-us-store";
+import RusadaDocs from "./rusada-docs";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -47,9 +46,6 @@ const Rusada = (props) => {
         }
     },[])
 
-    const docs = AdminRusadaStore.rusada?.docs
-
-
     //загрузка документов
     const UploadDocs = (event) => {
         event.preventDefault();
@@ -69,8 +65,6 @@ const Rusada = (props) => {
             await Store.sendMediaDelTmp()
         }
     };
-
-    const docsCount = AdminRusadaStore.rusada?.docs && AdminRusadaStore.rusada.docs.length
 
     return (
         <AdminPageWrapper title={'Антидопинг'}>
@@ -133,13 +127,9 @@ const Rusada = (props) => {
                             </Button>
                         </div>
                     )}
-                    <div className={classes.docs}>
-                        {
-                            docs.map((item,index)=>(
-                                <RusadaDocsItem key={'docs'+index} item={item} index={index} docsCount={docsCount}/>
-                            ))
-                        }
-                    </div>
+
+                    <RusadaDocs/>
+
                     {AdminRusadaStore.tmp_errors &&
                         <ErrorAlert
                             open={true}
@@ -149,7 +139,6 @@ const Rusada = (props) => {
                     }
                 </div>
             )}
-
         </AdminPageWrapper>
     );
 };

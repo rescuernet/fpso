@@ -92,7 +92,7 @@ const CompFields = (props) => {
                             <Select
                                 labelId="location-select-label"
                                 id="locationSelect"
-                                value={compOne.location}
+                                value={compOne?.location || ''}
                                 onChange={(e)=>{
                                     runInAction(()=>{
                                         AdminCompStore.compOne.location = e.target.value

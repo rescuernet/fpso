@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import AdminReferenceBooksStore from "../../../../../bll/admin/admin-reference-books-store";
+import {runInAction} from "mobx";
 
 const useStyles = makeStyles((theme) => ({
     dialogPaper: {
@@ -26,7 +27,9 @@ export const PeopleAlertDialog = (props) => {
             setOpen(false)
             setTimeout(props.close,500)
         }else{
-            AdminReferenceBooksStore.tmp_errors = null
+            runInAction(()=>{
+                AdminReferenceBooksStore.tmp_errors = null
+            })
             setOpen(false);
         }
 

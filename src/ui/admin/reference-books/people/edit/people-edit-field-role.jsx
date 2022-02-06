@@ -78,7 +78,7 @@ const PeopleEditFieldRole = ({role}) => {
                     {role.map((i,index)=> {
                         let res = Role.find((item => item.value === i))
                         return (
-                            <div className={classes.item}>
+                            <div className={classes.item} key={i.value+res.title}>
                                 <div className={classes.title}>{res.title}</div>
                                 <div className={classes.delete}>
                                     <HighlightOffIcon
@@ -106,6 +106,7 @@ const PeopleEditFieldRole = ({role}) => {
                 >
                     {Role.map((i)=>(
                         <MenuItem
+                            key={i.value+'2'}
                             className={classes.menu}
                             onClick={()=> {roleSet(i.value)}}
                         >

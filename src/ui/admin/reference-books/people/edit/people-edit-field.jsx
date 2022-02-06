@@ -16,13 +16,7 @@ const PeopleEditField = ({people}) => {
 
     return (
         <div className={classes.fields}>
-            <PeopleEditFieldPersonal
-                /*gender={people.gender}*/
-                surname={people.surname}
-                name={people.name}
-                patronymic={people.patronymic}
-                date_birth={people.date_birth}
-            />
+            <PeopleEditFieldPersonal/>
             <PeopleEditFieldRole role={people.role}/>
         </div>
     );

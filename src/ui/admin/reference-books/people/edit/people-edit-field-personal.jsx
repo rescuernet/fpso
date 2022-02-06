@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const PeopleEditFieldPersonal = ({gender,surname,name,patronymic,date_birth}) => {
+const PeopleEditFieldPersonal = (props) => {
     const classes = useStyles();
 
     const people = AdminReferenceBooksStore.referenceBooks.people.one
@@ -65,49 +65,49 @@ const PeopleEditFieldPersonal = ({gender,surname,name,patronymic,date_birth}) =>
                     className={classes.fieldFio}
                     id="surname"
                     label="Фамилия"
-                    value={surname || ''}
+                    value={people?.surname || ''}
                     onChange={(e)=>{
                         runInAction(()=>{
                             people.surname = e.target.value
                         })
                     }}
                     variant="outlined"
-                    error={surname && surname.length < 3}
-                    helperText={surname && surname.length < 3 && 'минимум 3 символа'}
+                    error={!!(people?.surname && people.surname.length < 3)}
+                    helperText={people?.surname && people.surname.length < 3 && 'минимум 3 символа'}
                 />
                 <TextField
                     className={classes.fieldFio}
                     id="name"
                     label="Имя"
-                    value={name || ''}
+                    value={people?.name || ''}
                     onChange={(e)=>{
                         runInAction(()=>{
                             people.name = e.target.value
                         })
                     }}
                     variant="outlined"
-                    error={name && name.length < 3}
-                    helperText={name && name.length < 3 && 'минимум 3 символа'}
+                    error={!!(people?.name && people?.name.length < 3)}
+                    helperText={people?.name && people?.name.length < 3 && 'минимум 3 символа'}
                 />
                 <TextField
                     className={classes.fieldFio}
                     id="patronymic"
                     label="Отчество"
-                    value={patronymic || ''}
+                    value={people?.patronymic || ''}
                     onChange={(e)=>{
                         runInAction(()=>{
                             people.patronymic = e.target.value
                         })
                     }}
                     variant="outlined"
-                    error={patronymic && patronymic.length < 3}
-                    helperText={patronymic && patronymic.length < 3 && 'минимум 3 символа'}
+                    error={!!(people?.patronymic && people?.patronymic.length < 3)}
+                    helperText={people?.patronymic && people?.patronymic.length < 3 && 'минимум 3 символа'}
                 />
                 <TextField
                     id="dateBirth"
                     label="Дата рождения"
                     type="date"
-                    value={date_birth && dateFns.format(new Date(date_birth), 'yyyy-MM-dd')}
+                    value={people?.date_birth ? dateFns.format(new Date(people.date_birth), 'yyyy-MM-dd') : ''}
                     onChange={(e)=>{
                         runInAction(()=>{
                             people.date_birth = e.target.value

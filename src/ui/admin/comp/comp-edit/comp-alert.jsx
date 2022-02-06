@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
+import {runInAction} from "mobx";
 
 const useStyles = makeStyles((theme) => ({
     dialogPaper: {
@@ -26,7 +27,9 @@ export const CompAlertDialog = (props) => {
             setOpen(false)
             setTimeout(props.close,500)
         }else{
-            AdminCompStore.tmp_errors = null
+            runInAction(()=>{
+                AdminCompStore.tmp_errors = null
+            })
             setOpen(false);
         }
 

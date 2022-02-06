@@ -23,7 +23,6 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {JudgesAlertDialog} from "./judges-orders-edit-alert";
 import JudgesOrdersDocs from "./judges-orders-edit-docs";
 import {ADM_RM} from "../../../../routes/admin-routes";
-import AdminCompStore from "../../../../bll/admin/admin-competitions-store";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {

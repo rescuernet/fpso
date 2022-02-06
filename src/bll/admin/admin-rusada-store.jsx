@@ -33,7 +33,6 @@ class AdminRusadaStore {
             console.log(e)
         } finally {
             runInAction(() => {
-                Store.isInit = true
                 Store.isLoading = false
             })
         }
@@ -43,17 +42,20 @@ class AdminRusadaStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminRusadaService.rusada_docs_create(doc);
-            runInAction(() => {this.rusada.docs.unshift({title:originName,doc:response.data.doc})})
-            Store.setMediaDelTmp(response.data.doc)
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Документ не загрузился!</div>
+                        <div>Максимальный размер 10 мб</div>
+                        <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.rusada.docs.unshift({title:originName,doc:response.data.doc})})
+                Store.setMediaDelTmp(response.data.doc)
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Документ не загрузился!</div>
-                    <div>Максимальный размер 10 мб</div>
-                    <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -89,7 +91,6 @@ class AdminRusadaStore {
             console.log(e)
         } finally {
             runInAction(() => {
-                Store.isInit = true
                 Store.isLoading = false
             })
         }

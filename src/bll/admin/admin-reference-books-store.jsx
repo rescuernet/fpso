@@ -50,15 +50,11 @@ class AdminReferenceBooksStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
     poolsCreate = async () => {
-        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminReferenceBooksService.pools_create()
             if(response.data?.error){
@@ -71,12 +67,7 @@ class AdminReferenceBooksStore {
             }
         } catch (e) {
             console.log(e)
-        } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
-        }
+        } finally {}
     }
 
     poolsId = async (id) => {
@@ -87,10 +78,7 @@ class AdminReferenceBooksStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
@@ -109,15 +97,11 @@ class AdminReferenceBooksStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
     peopleCreate = async () => {
-        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminReferenceBooksService.people_create()
             if(response.data?.error){
@@ -130,12 +114,7 @@ class AdminReferenceBooksStore {
             }
         } catch (e) {
             console.log(e)
-        } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
-        }
+        } finally {}
     }
 
     peopleId = async (id) => {
@@ -146,10 +125,7 @@ class AdminReferenceBooksStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
@@ -157,19 +133,22 @@ class AdminReferenceBooksStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminReferenceBooksService.people_avatar_create(avatar);
-            runInAction(() => {
-                this.referenceBooks.people.one.avatar = response.data.name
-                Store.setMediaDelTmp(response.data.name)
-            })
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Изображение не загрузилось!</div>
+                        <div>Максимальный размер 4 мб</div>
+                        <div>Тип файла JPEG/JPG</div>
+                    </div>})
+            }else{
+                runInAction(() => {
+                    this.referenceBooks.people.one.avatar = response.data.name
+                    Store.setMediaDelTmp(response.data.name)
+                })
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Изображение не загрузилось!</div>
-                    <div>Максимальный размер 4 мб</div>
-                    <div>Тип файла JPEG/JPG</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -197,10 +176,7 @@ class AdminReferenceBooksStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
@@ -212,10 +188,7 @@ class AdminReferenceBooksStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 

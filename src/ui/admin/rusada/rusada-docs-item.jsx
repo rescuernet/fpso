@@ -71,6 +71,9 @@ const RusadaDocsItem = (props) => {
         })
     };
     const extension = AdminRusadaStore.rusada.docs[props.index].doc.slice(AdminRusadaStore.rusada.docs[props.index].doc.lastIndexOf(".") + 1)
+
+    const docsCount = AdminRusadaStore.rusada.docs.length
+
     return (
         <div className={classes.item}>
             <TextField
@@ -98,15 +101,25 @@ const RusadaDocsItem = (props) => {
                     <HighlightOffIcon onClick={() => {
                         DeleteOneDocs(props.index,props.item.doc)
                     }} color={'error'}/>
-                    {props.docsCount > 1 && (
+                    {docsCount > 1 && (
                         <>
                             <Divider orientation={"vertical"} flexItem={true}/>
                             <div className={classes.move}>
                                 {props.index > 0 && (
-                                    <ArrowDropUpIcon onClick={()=>{moveItemUp(props.index,AdminRusadaStore.rusada.docs)}}/>
+                                    <ArrowDropUpIcon
+                                        onClick={()=>{
+                                            runInAction(()=>{
+                                                moveItemUp(props.index,AdminRusadaStore.rusada.docs)
+                                            })
+                                        }}/>
                                 )}
-                                {props.index + 1 < props.docsCount && (
-                                    <ArrowDropDownIcon onClick={()=>{moveItemDown(props.index,AdminRusadaStore.rusada.docs)}}/>
+                                {props.index + 1 < docsCount && (
+                                    <ArrowDropDownIcon
+                                        onClick={()=>{
+                                            runInAction(()=>{
+                                                moveItemDown(props.index,AdminRusadaStore.rusada.docs)
+                                            })
+                                        }}/>
                                 )}
                             </div>
                         </>

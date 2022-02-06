@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {makeStyles} from "@material-ui/core/styles";
 import AdminNewsStore from "../../../../bll/admin/admin-news-store";
+import {runInAction} from "mobx";
 
 const useStyles = makeStyles((theme) => ({
     dialogPaper: {
@@ -26,7 +27,9 @@ export const NewsAlertDialog = (props) => {
             setOpen(false)
             setTimeout(props.close,500)
         }else{
-            AdminNewsStore.news_tmp_errors = null
+            runInAction(()=>{
+                AdminNewsStore.news_tmp_errors = null
+            })
             setOpen(false);
         }
 

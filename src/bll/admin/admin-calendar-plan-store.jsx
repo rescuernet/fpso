@@ -32,10 +32,7 @@ class AdminCalendarPlanStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
@@ -43,17 +40,20 @@ class AdminCalendarPlanStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminCalendarPlanService.calendar_plan_docs_create(doc);
-            runInAction(() => {this.plan.docs.push({title:originName,doc:response.data.doc})})
-            Store.setMediaDelTmp(response.data.doc)
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Документ не загрузился!</div>
+                        <div>Максимальный размер 10 мб</div>
+                        <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.plan.docs.push({title:originName,doc:response.data.doc})})
+                Store.setMediaDelTmp(response.data.doc)
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Документ не загрузился!</div>
-                    <div>Максимальный размер 10 мб</div>
-                    <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -88,10 +88,7 @@ class AdminCalendarPlanStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 }

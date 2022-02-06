@@ -31,7 +31,6 @@ class AdminJudgesOrdersStore {
     }
 
     judgesOrdersCreate = async () => {
-        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminJudgesOrdersService.judges_orders_create()
             if(response.data?.error){
@@ -42,12 +41,7 @@ class AdminJudgesOrdersStore {
             }
         } catch (e) {
             console.log(e)
-        } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
-        }
+        } finally {}
     }
 
     judgesOrdersId = async (id) => {
@@ -63,47 +57,40 @@ class AdminJudgesOrdersStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
     judgesOrdersPeopleGet = async (orderType) => {
-        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminJudgesOrdersService.judges_orders_people_get(orderType)
             runInAction(() => {this.judgesOrders.people = response.data})
         } catch (e) {
             console.log(e)
-        } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
-        }
+        } finally {}
     }
 
     judgesOrdersDocsCreate = async (doc,originName) => {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminJudgesOrdersService.judges_orders_docs_create(doc);
-            runInAction(() => {this.judgesOrders.one.docs.push({title:originName,doc:response.data.doc})})
-            Store.setMediaDelTmp(response.data.doc)
+            if(response.data?.error){
+                runInAction(() => {this.tmp_errors =
+                    <div>
+                        <div>Документ не загрузился!</div>
+                        <div>Максимальный размер 10 мб</div>
+                        <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.judgesOrders.one.docs.push({title:originName,doc:response.data.doc})})
+                Store.setMediaDelTmp(response.data.doc)
+            }
         } catch (e) {
-            runInAction(() => {this.tmp_errors =
-                <div>
-                    <div>Документ не загрузился!</div>
-                    <div>Максимальный размер 10 мб</div>
-                    <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
-
 
     judgesOrdersSave = async () => {
         runInAction(() => {Store.isLoading = true})
@@ -131,10 +118,7 @@ class AdminJudgesOrdersStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 
@@ -152,7 +136,6 @@ class AdminJudgesOrdersStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -165,10 +148,7 @@ class AdminJudgesOrdersStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 }

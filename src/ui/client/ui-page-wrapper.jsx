@@ -3,6 +3,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import Header from "./header/header";
 import Footer from "./footer/footer";
+import BackdropComponent from "../../utils/backdrop";
+import Store from "../../bll/store";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,8 +25,11 @@ const useStyles = makeStyles((theme) => ({
 const UiPageWrapper = ({header,children}) => {
     const classes = useStyles();
 
+    const isLoading = Store.isLoading
+
     return (
         <div className={classes.root}>
+            <BackdropComponent/>
             <Header title={header}/>
             <div className={classes.content}>
                 {children}

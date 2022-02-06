@@ -5,6 +5,7 @@ import Store from "../../bll/store";
 import AdminMenu from "./menu/admin-menu";
 import AdminHeader from "./header/admin-header";
 import {Typography} from "@material-ui/core";
+import BackdropComponent from "../../utils/backdrop";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,14 +25,17 @@ const useStyles = makeStyles((theme) => ({
         padding: 20,
         borderBottom: '1px solid #ccc',
         marginBottom: 20
-    },
+    }
 }))
 
 const AdminPageWrapper = ({title, children}) => {
     const classes = useStyles();
 
+
+
     return (
         <div className={classes.root}>
+            <BackdropComponent/>
             {Store.width > 1280 ? <AdminMenu open={true} variant={'permanent'} menuIconView={false}/> : <AdminHeader header={title}/>}
             <div className={classes.wrapper}>
                 {Store.width > 1280 && <div className={classes.header}><Typography variant={'h5'}>{title}</Typography></div>}

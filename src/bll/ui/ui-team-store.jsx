@@ -20,7 +20,6 @@ class UiTeamStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }

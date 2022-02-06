@@ -26,7 +26,6 @@ class AdminNewsStore {
     }
 
     newsCreate = async () => {
-        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminNewsService.newsCreate();
             if(response.data?.error){
@@ -40,10 +39,7 @@ class AdminNewsStore {
             }
         } catch (e) {
             console.log(e)
-        } finally {
-            runInAction(() => {Store.isInit = true})
-            runInAction(() => {Store.isLoading = false})
-        }
+        } finally {}
     }
 
     getNewsId = async (id) => {
@@ -54,7 +50,6 @@ class AdminNewsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -63,19 +58,22 @@ class AdminNewsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminNewsService.newsAvatarCreate(avatar);
-            runInAction(() => {
-                this.newsOne.avatar = response.data.name
-                Store.setMediaDelTmp(response.data.name)
-            })
+            if(response.data?.error){
+                runInAction(() => {this.news_tmp_errors =
+                    <div>
+                        <div>Изображение не загрузилось!</div>
+                        <div>Максимальный размер 4 мб</div>
+                        <div>Тип файла JPEG/JPG</div>
+                    </div>})
+            }else{
+                runInAction(() => {
+                    this.newsOne.avatar = response.data.name
+                    Store.setMediaDelTmp(response.data.name)
+                })
+            }
         } catch (e) {
-            runInAction(() => {this.news_tmp_errors =
-                <div>
-                    <div>Изображение не загрузилось!</div>
-                    <div>Максимальный размер 4 мб</div>
-                    <div>Тип файла JPEG/JPG</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -84,17 +82,20 @@ class AdminNewsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminNewsService.newsImageCreate(image);
-            runInAction(() => {this.newsOne.images.push(response.data.name)})
-            Store.setMediaDelTmp(response.data.name)
+            if(response.data?.error){
+                runInAction(() => {this.news_tmp_errors =
+                    <div>
+                        <div>Изображение не загрузилось!</div>
+                        <div>Максимальный размер 4 мб</div>
+                        <div>Тип файла JPEG/JPG</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.newsOne.images.push(response.data.name)})
+                Store.setMediaDelTmp(response.data.name)
+            }
         } catch (e) {
-            runInAction(() => {this.news_tmp_errors =
-                <div>
-                    <div>Изображение не загрузилось!</div>
-                    <div>Максимальный размер 4 мб</div>
-                    <div>Тип файла JPEG/JPG</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -103,17 +104,20 @@ class AdminNewsStore {
         runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminNewsService.newsDocsCreate(doc);
-            runInAction(() => {this.newsOne.docs.push({title:originName,doc:response.data.doc})})
-            Store.setMediaDelTmp(response.data.doc)
+            if(response.data?.error){
+                runInAction(() => {this.news_tmp_errors =
+                    <div>
+                        <div>Документ не загрузился!</div>
+                        <div>Максимальный размер 10 мб</div>
+                        <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
+                    </div>})
+            }else{
+                runInAction(() => {this.newsOne.docs.push({title:originName,doc:response.data.doc})})
+                Store.setMediaDelTmp(response.data.doc)
+            }
         } catch (e) {
-            runInAction(() => {this.news_tmp_errors =
-                <div>
-                    <div>Документ не загрузился!</div>
-                    <div>Максимальный размер 10 мб</div>
-                    <div>Типы файлов .doc, .docx, .pdf, .xls, .xlsx</div>
-                </div>})
+
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -150,7 +154,6 @@ class AdminNewsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -169,7 +172,6 @@ class AdminNewsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {Store.isInit = true})
             runInAction(() => {Store.isLoading = false})
         }
     }
@@ -185,10 +187,7 @@ class AdminNewsStore {
         } catch (e) {
             console.log(e)
         } finally {
-            runInAction(() => {
-                Store.isInit = true
-                Store.isLoading = false
-            })
+            runInAction(() => {Store.isLoading = false})
         }
     }
 

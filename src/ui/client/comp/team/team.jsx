@@ -4,7 +4,7 @@ import {observer} from "mobx-react-lite";
 import UiPageWrapper from "../../ui-page-wrapper";
 import BpContainer from "../../bp-container";
 import Rusada from "../../rusada/rusada-poster";
-import {runInAction, toJS} from "mobx";
+import {runInAction} from "mobx";
 import TeamItemDocs from "./team-item-docs";
 import UiTeamStore from "../../../../bll/ui/ui-team-store";
 
