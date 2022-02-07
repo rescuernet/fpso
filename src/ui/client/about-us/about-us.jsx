@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '1.5',
         marginBottom: 30,
         paddingBottom: 20,
-        borderBottom: '1px solid #c4c4c4'
+        borderBottom: '1px solid #c4c4c4',
+        whiteSpace: 'pre-wrap'
     },
     contact: {
         marginBottom: 40,

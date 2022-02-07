@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
-import UiPageWrapper from "../../ui-page-wrapper";
-import BpContainer from "../../bp-container";
-import Rusada from "../../rusada/rusada-poster";
+import UiPageWrapper from "../ui-page-wrapper";
+import BpContainer from "../bp-container";
+import Rusada from "../rusada/rusada-poster";
 import {runInAction} from "mobx";
 import TeamItemDocs from "./team-item-docs";
-import UiTeamStore from "../../../../bll/ui/ui-team-store";
+import UiTeamStore from "../../../bll/ui/ui-team-store";
 
 
 const useStyles = makeStyles((theme) => ({
