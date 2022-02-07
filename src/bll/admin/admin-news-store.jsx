@@ -31,10 +31,8 @@ class AdminNewsStore {
             if(response.data?.error){
                 return 'ERROR'
             }else{
-                runInAction(() => {
-                    this.clearData()
-                    this.tmpNewsId = response.data
-                })
+                this.clearData()
+                runInAction(() => {this.tmpNewsId = response.data})
                 return 'OK'
             }
         } catch (e) {
@@ -66,10 +64,8 @@ class AdminNewsStore {
                         <div>Тип файла JPEG/JPG</div>
                     </div>})
             }else{
-                runInAction(() => {
-                    this.newsOne.avatar = response.data.name
-                    Store.setMediaDelTmp(response.data.name)
-                })
+                runInAction(() => {this.newsOne.avatar = response.data.name})
+                Store.setMediaDelTmp(response.data.name)
             }
         } catch (e) {
 
@@ -134,19 +130,17 @@ class AdminNewsStore {
                 const mediaDelTmp = toJS(Store.mediaDelTmp)
 
                 const diff = mediaDelTmp.filter(i=>actualMediaArr.indexOf(i)<0)
-                Store.mediaDelTmp = diff
+                runInAction(()=>{Store.mediaDelTmp = diff})
                 localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(diff)));
             }
 
             const response = await AdminNewsService.newsUpdate({data:this.newsOne,mediaDel: this.mediaDel});
             if(response.data?.error){
-                runInAction(() => {
-                    this.news_tmp_errors = <div>{response.data.error}</div>
-                    if(localStorage.getItem('mediaDelTmp')){
-                        actualMediaArr.map((i)=>Store.mediaDelTmp.push(i))
-                        localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(Store.mediaDelTmp)));
-                    }
-                })
+                runInAction(() => {this.news_tmp_errors = <div>{response.data.error}</div>})
+                if(localStorage.getItem('mediaDelTmp')){
+                    runInAction(()=>{Store.mediaDelTmp = [...Store.mediaDelTmp,...actualMediaArr]})
+                    localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(Store.mediaDelTmp)));
+                }
             }else{
                 this.clearData()
                 return 200
@@ -163,10 +157,9 @@ class AdminNewsStore {
         try {
             const response = await AdminNewsService.newsDelete(id);
             if(response.data?.error){
-                runInAction(() => {this.news_tmp_errors =
-                    <div>{response.data.error}</div>})
+                runInAction(() => {this.news_tmp_errors = <div>{response.data.error}</div>})
             }else{
-                runInAction(() => {this.clearData()})
+                this.clearData()
                 return 200
             }
         } catch (e) {
@@ -177,10 +170,8 @@ class AdminNewsStore {
     }
 
     getNews = async () => {
-        runInAction(() => {
-            Store.isLoading = true
-            this.clearData()
-        })
+        runInAction(() => {Store.isLoading = true})
+        this.clearData()
         try {
             const response = await AdminNewsService.getNews();
             runInAction(() => {this.news = response.data})
@@ -190,9 +181,6 @@ class AdminNewsStore {
             runInAction(() => {Store.isLoading = false})
         }
     }
-
-
-
 }
 
 export default new AdminNewsStore();

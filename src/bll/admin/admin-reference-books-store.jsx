@@ -60,9 +60,7 @@ class AdminReferenceBooksStore {
             if(response.data?.error){
                 return 'ERROR'
             }else{
-                runInAction(() => {
-                    this.referenceBooks.pools.id = response.data
-                })
+                runInAction(() => {this.referenceBooks.pools.id = response.data})
                 return 'OK'
             }
         } catch (e) {
@@ -87,9 +85,7 @@ class AdminReferenceBooksStore {
         try {
             const response = await AdminReferenceBooksService.pools_save(this.referenceBooks.pools.one)
             if(response.data?.error){
-                runInAction(() => {
-                    this.tmp_errors = <div>{response.data.error}</div>
-                })
+                runInAction(() => {this.tmp_errors = <div>{response.data.error}</div>})
             }else{
                 this.clearData()
                 return 200
@@ -107,9 +103,7 @@ class AdminReferenceBooksStore {
             if(response.data?.error){
                 return 'ERROR'
             }else{
-                runInAction(() => {
-                    this.referenceBooks.people.id = response.data
-                })
+                runInAction(() => {this.referenceBooks.people.id = response.data})
                 return 'OK'
             }
         } catch (e) {
@@ -141,10 +135,8 @@ class AdminReferenceBooksStore {
                         <div>Тип файла JPEG/JPG</div>
                     </div>})
             }else{
-                runInAction(() => {
-                    this.referenceBooks.people.one.avatar = response.data.name
-                    Store.setMediaDelTmp(response.data.name)
-                })
+                runInAction(() => {this.referenceBooks.people.one.avatar = response.data.name})
+                Store.setMediaDelTmp(response.data.name)
             }
         } catch (e) {
 
@@ -166,9 +158,7 @@ class AdminReferenceBooksStore {
             }
             const response = await AdminReferenceBooksService.people_save({data:this.referenceBooks.people.one,mediaDel: this.mediaDel})
             if(response.data?.error){
-                runInAction(() => {
-                    this.tmp_errors = <div>{response.data.error}</div>
-                })
+                runInAction(() => {this.tmp_errors = <div>{response.data.error}</div>})
             }else{
                 this.clearData()
                 return 200

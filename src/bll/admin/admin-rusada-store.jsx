@@ -72,17 +72,12 @@ class AdminRusadaStore {
                 }
                 const mediaDelTmp = toJS(Store.mediaDelTmp)
                 const diff = mediaDelTmp.filter(i => actualMediaArr.indexOf(i) < 0)
-                Store.mediaDelTmp = diff
+                runInAction(()=>{Store.mediaDelTmp = diff})
                 localStorage.setItem('mediaDelTmp', JSON.stringify(toJS(diff)));
             }
-            const response = await AdminRusadaService.rusada_save({
-                data: this.rusada,
-                mediaDel: this.mediaDel
-            })
+            const response = await AdminRusadaService.rusada_save({data: this.rusada, mediaDel: this.mediaDel})
             if (response.data?.error) {
-                runInAction(() => {
-                    this.tmp_errors = <div>{response.data.error}</div>
-                })
+                runInAction(() => {this.tmp_errors = <div>{response.data.error}</div>})
             } else {
                 this.clearData()
                 return 200

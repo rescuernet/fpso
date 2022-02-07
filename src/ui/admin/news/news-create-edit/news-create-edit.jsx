@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, Divider} from "@material-ui/core";
 import AdminNewsStore from "../../../../bll/admin/admin-news-store";
-import {runInAction} from "mobx";
+import {runInAction, toJS} from "mobx";
 import {observer} from "mobx-react-lite";
 import {NewsAlertDialog} from "./news-alert";
 import {useHistory, useParams} from "react-router-dom";

@@ -1,4 +1,4 @@
-import {makeAutoObservable, toJS} from "mobx";
+import {makeAutoObservable, runInAction, toJS} from "mobx";
 import AdminOtherService from "../services/admin/admin-other-service";
 
 
@@ -17,10 +17,12 @@ class Store {
 
     setMediaDelTmp(item) {
         if(localStorage.getItem('mediaDelTmp')){
-            this.mediaDelTmp = JSON.parse(localStorage.getItem('mediaDelTmp'))
-            this.mediaDelTmp.push(item)
+            runInAction(()=>{
+                this.mediaDelTmp = JSON.parse(localStorage.getItem('mediaDelTmp'))
+                this.mediaDelTmp.push(item)
+            })
         }else{
-            this.mediaDelTmp.push(item)
+            runInAction(()=>{this.mediaDelTmp.push(item)})
         }
         localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(this.mediaDelTmp)));
     }

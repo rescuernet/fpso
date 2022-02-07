@@ -30,10 +30,8 @@ class AdminCompetitionsStore {
             if(response.data?.error){
                 return 'ERROR'
             }else{
-                runInAction(() => {
-                    this.clearData()
-                    this.tmpCompId = response.data
-                })
+                this.clearData()
+                runInAction(() => {this.tmpCompId = response.data})
                 return 'OK'
             }
         } catch (e) {
@@ -68,10 +66,8 @@ class AdminCompetitionsStore {
                         <div>Тип файла JPEG/JPG</div>
                     </div>})
             }else{
-                runInAction(() => {
-                    this.compOne.avatar = response.data.name
-                    Store.setMediaDelTmp(response.data.name)
-                })
+                runInAction(() => {this.compOne.avatar = response.data.name})
+                Store.setMediaDelTmp(response.data.name)
             }
         } catch (e) {
 
@@ -127,19 +123,17 @@ class AdminCompetitionsStore {
                 }
                 const mediaDelTmp = toJS(Store.mediaDelTmp)
                 const diff = mediaDelTmp.filter(i=>actualMediaArr.indexOf(i)<0)
-                Store.mediaDelTmp = diff
+                runInAction(()=>{Store.mediaDelTmp = diff})
                 localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(diff)));
             }
 
             const response = await AdminCompetitionsService.compUpdate({data: this.compOne,mediaDel: this.mediaDel});
             if(response.data?.error){
-                runInAction(() => {
-                    this.tmp_errors = <div>{response.data.error}</div>
-                    if(localStorage.getItem('mediaDelTmp')){
-                        actualMediaArr.map((i)=>Store.mediaDelTmp.push(i))
-                        localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(Store.mediaDelTmp)));
-                    }
-                })
+                runInAction(() => {this.tmp_errors = <div>{response.data.error}</div>})
+                if(localStorage.getItem('mediaDelTmp')){
+                    runInAction(()=>{Store.mediaDelTmp = [...Store.mediaDelTmp,...actualMediaArr]})
+                    localStorage.setItem('mediaDelTmp',JSON.stringify(toJS(Store.mediaDelTmp)));
+                }
             }else{
                 this.clearData()
                 return 200
@@ -156,10 +150,9 @@ class AdminCompetitionsStore {
         try {
             const response = await AdminCompetitionsService.compDelete(id);
             if(response.data?.error){
-                runInAction(() => {this.tmp_errors =
-                    <div>{response.data.error}</div>})
+                runInAction(() => {this.tmp_errors = <div>{response.data.error}</div>})
             }else{
-                runInAction(() => {this.clearData()})
+                this.clearData()
                 return 200
             }
         } catch (e) {
@@ -170,10 +163,8 @@ class AdminCompetitionsStore {
     }
 
     getComp = async () => {
-        runInAction(() => {
-            Store.isLoading = true
-            this.clearData()
-        })
+        runInAction(() => {Store.isLoading = true})
+        this.clearData()
         try {
             const response = await AdminCompetitionsService.getComp();
             runInAction(() => {this.comp = response.data})
