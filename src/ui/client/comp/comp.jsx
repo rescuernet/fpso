@@ -23,22 +23,6 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: "wrap",
         marginTop: 20,
     },
-    subsection: {
-        display: "flex",
-        '& a': {
-            borderBottom: '1px solid #005580',
-            paddingBottom: 10,
-            color: '#005580!important',
-            margin: '0 20px',
-            '@media (max-width: 750px)': {
-                margin: 0,
-            },
-        },
-        '@media (max-width: 750px)': {
-            display: 'flex',
-            justifyContent: 'space-around'
-        },
-    },
     paginationTop: {
         display: "flex",
         justifyContent: "center",
@@ -79,14 +63,6 @@ const Comp = () => {
         <UiPageWrapper header={'Соревнования'}>
             <BpContainer>
                 <Rusada/>
-                <div className={classes.subsection}>
-                    <NavLink to={UI_RM.Calendar_Plan.path}>
-                        Календарный план
-                    </NavLink>
-                    <NavLink to={UI_RM.Team.path}>
-                        Сборная
-                    </NavLink>
-                </div>
                 {compItem &&
                     <>
                         {pagesCount > 1 &&

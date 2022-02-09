@@ -7,6 +7,7 @@ import {Judges_rank} from "../../../../types/types";
 import {Divider, TextField} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import Store from "../../../../bll/store";
+import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles((theme) => ({
     dialogPaper: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export const JudgesOrdersEditPeoplePopup = ({open,setOpen,orderId}) => {
+const JudgesOrdersEditPeoplePopup = ({open,setOpen,orderId}) => {
 
     const classes = useStyles();
 
@@ -78,8 +79,6 @@ export const JudgesOrdersEditPeoplePopup = ({open,setOpen,orderId}) => {
 
     let people = AdminJudgesOrdersStore.judgesOrders.people.filter(
         el => (el.surname+el.name+el.patronymic).toLowerCase().indexOf(filterStr.toLowerCase()) !== -1)
-
-
 
     const filter = (event)=> {
         setFilterStr(event)
@@ -103,42 +102,49 @@ export const JudgesOrdersEditPeoplePopup = ({open,setOpen,orderId}) => {
     };
 
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            classes={{paper: classes.dialogPaper}}
-        >
-            {Store.width < 750 && (
-                <CloseIcon className={classes.close} fontSize={"medium"} onClick={()=>{handleClose()}}/>
+        <>
+            {!Store.isLoading && (
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    classes={{paper: classes.dialogPaper}}
+                >
+                    {Store.width < 750 && (
+                        <CloseIcon className={classes.close} fontSize={"medium"} onClick={()=>{handleClose()}}/>
+                    )}
+                    <div className={classes.sort}>
+                        <TextField
+                            id="sortPeople"
+                            label="поиск"
+                            value={filterStr}
+                            onChange={(e)=>{
+                                filter(e.target.value)
+                            }}
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </div>
+                    <Divider/>
+                    <div className={classes.wrapper}>
+                        <div className={classes.list}>
+                            {people.map((i)=>{
+                                let res = Judges_rank.find((item => item.value === i.rank_judges))
+                                return (
+                                    <div key={i._id} id={i._id} className={classes.item} onClick={()=> {addPeople(i._id,`${i.surname} ${i.name} ${i.patronymic}`)}}>
+                                        <div className={classes.name}>{`${i.surname} ${i.name} ${i.patronymic}`}</div>
+                                        <div className={res ? classes.rank : classes.rankRed}>{res?.abbreviation || 'Без категории'}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </Dialog>
             )}
-            <div className={classes.sort}>
-                <TextField
-                    id="sortPeople"
-                    label="поиск"
-                    value={filterStr}
-                    onChange={(e)=>{
-                        filter(e.target.value)
-                    }}
-                    variant="outlined"
-                    fullWidth
-                />
-            </div>
-            <Divider/>
-            <div className={classes.wrapper}>
-                <div className={classes.list}>
-                    {people.map((i)=>{
-                        let res = Judges_rank.find((item => item.value === i.rank_judges))
-                        return (
-                            <div key={i._id} id={i._id} className={classes.item} onClick={()=> {addPeople(i._id,`${i.surname} ${i.name} ${i.patronymic}`)}}>
-                                <div className={classes.name}>{`${i.surname} ${i.name} ${i.patronymic}`}</div>
-                                <div className={res ? classes.rank : classes.rankRed}>{res?.abbreviation || 'Без категории'}</div>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-        </Dialog>
+        </>
+
     );
 }
+
+export default observer(JudgesOrdersEditPeoplePopup)

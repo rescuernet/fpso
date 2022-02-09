@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import {Judges_rank_doc} from "../../../../types/types";
 import * as dateFns from "date-fns";
-import {JudgesOrdersEditPeoplePopup} from "./judges-orders-edit-people-popup";
+import JudgesOrdersEditPeoplePopup from "./judges-orders-edit-people-popup";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import {JudgesAlertDialog} from "./judges-orders-edit-alert";
 import JudgesOrdersDocs from "./judges-orders-edit-docs";

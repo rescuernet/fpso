@@ -62,12 +62,15 @@ class AdminJudgesOrdersStore {
     }
 
     judgesOrdersPeopleGet = async (orderType) => {
+        runInAction(() => {Store.isLoading = true})
         try {
             const response = await AdminJudgesOrdersService.judges_orders_people_get(orderType)
             runInAction(() => {this.judgesOrders.people = response.data})
         } catch (e) {
             console.log(e)
-        } finally {}
+        } finally {
+            runInAction(() => {Store.isLoading = false})
+        }
     }
 
     judgesOrdersDocsCreate = async (doc,originName) => {
