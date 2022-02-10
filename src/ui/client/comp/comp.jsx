@@ -62,7 +62,6 @@ const Comp = () => {
     return (
         <UiPageWrapper header={'Соревнования'}>
             <BpContainer>
-                <Rusada/>
                 {compItem &&
                     <>
                         {pagesCount > 1 &&

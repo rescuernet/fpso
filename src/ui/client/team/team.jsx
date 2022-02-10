@@ -3,7 +3,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import UiPageWrapper from "../ui-page-wrapper";
 import BpContainer from "../bp-container";
-import Rusada from "../rusada/rusada-poster";
 import {runInAction} from "mobx";
 import TeamItemDocs from "./team-item-docs";
 import UiTeamStore from "../../../bll/ui/ui-team-store";
@@ -12,7 +11,8 @@ import UiTeamStore from "../../../bll/ui/ui-team-store";
 const useStyles = makeStyles((theme) => ({
     team: {
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
+        margin: '40px 0'
     },
     wrapper: {
         width: 600,
@@ -48,7 +48,6 @@ const Team = (props) => {
     return (
         <UiPageWrapper header={'Сборная'}>
             <BpContainer>
-                <Rusada/>
                 {team && (
                     <div className={classes.team}>
                         <div className={classes.wrapper}>

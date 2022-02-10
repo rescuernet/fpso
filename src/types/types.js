@@ -35,12 +35,12 @@ export const Athlete_rank = [
 ]
 
 export const Judges_rank_doc = [
-    {value: 'cat_0_app', title: 'Всероссийская категория. Присвоение',sort:1},
-    {value: 'cat_0_ext', title: 'Всероссийская категория. Продление',sort:2},
-    {value: 'cat_1_app', title: 'Первая категория. Присвоение',sort:3},
-    {value: 'cat_1_ext', title: 'Первая категория. Продление',sort:4},
-    {value: 'cat_2_app', title: 'Вторая категория. Присвоение',sort:5},
-    {value: 'cat_2_ext', title: 'Вторая категория. Продление',sort:6},
-    {value: 'cat_3_app', title: 'Третья категория. Присвоение',sort:7},
-    {value: 'cat_3_ext', title: 'Третья категория. Продление',sort:8},
+    {value: 'cat_0_app', title: 'Всероссийская категория. Присвоение'},
+    {value: 'cat_0_ext', title: 'Всероссийская категория. Продление'},
+    {value: 'cat_1_app', title: 'Первая категория. Присвоение'},
+    {value: 'cat_1_ext', title: 'Первая категория. Продление'},
+    {value: 'cat_2_app', title: 'Вторая категория. Присвоение'},
+    {value: 'cat_2_ext', title: 'Вторая категория. Продление'},
+    {value: 'cat_3_app', title: 'Третья категория. Присвоение'},
+    {value: 'cat_3_ext', title: 'Третья категория. Продление'},
 ]

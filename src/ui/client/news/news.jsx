@@ -12,7 +12,6 @@ import {useHistory, useParams} from "react-router-dom";
 import {UI_RM} from "../../../routes/ui-routes";
 import UiPageWrapper from "../ui-page-wrapper";
 import BpContainer from "../bp-container";
-import Rusada from "../rusada/rusada-poster";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         '@media (max-width: 1280px)': {
             justifyContent: "space-evenly",
         },
-        marginTop: 20
+        marginTop: 40
     },
     paginationTop: {
         display: "flex",
@@ -67,7 +66,6 @@ const News = () => {
     return (
         <UiPageWrapper header={'Новости'}>
             <BpContainer>
-                <Rusada/>
                 {newsItem &&
                     <>
                         {pagesCount > 1 &&

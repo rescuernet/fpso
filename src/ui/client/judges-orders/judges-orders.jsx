@@ -8,7 +8,6 @@ import JudgesOrdersItem from "./judges-orders-item";
 import UiPageWrapper from "../ui-page-wrapper";
 import BpContainer from "../bp-container";
 import UiJudgesStore from "../../../bll/ui/ui-judges-store";
-import Rusada from "../rusada/rusada-poster";
 
 const useStyles = makeStyles((theme) => ({
     wrapper: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: 20
     },
     control: {
-        marginBottom: 20,
+        margin: '40px 0',
         '@media (max-width: 750px)' : {
             marginTop: 20
         },
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 20
     },
     select: {
-        margin: '20px 0'
+        marginBottom: 20
     },
     orders: {
         width: 600,
@@ -44,6 +43,11 @@ const JudgesOrders = (props) => {
         runInAction(async () => {
             await UiJudgesStore.judgesOrdersGet(orderType)
         })
+        return ()=> {
+            runInAction(()=>{
+                UiJudgesStore.judgesOrders = []
+            })
+        }
     },[orderType])
 
     const orders = UiJudgesStore.judgesOrders
@@ -51,7 +55,6 @@ const JudgesOrders = (props) => {
     return (
         <UiPageWrapper header={'Судейский корпус'}>
             <BpContainer>
-                <Rusada/>
                 <div className={classes.wrapper}>
                     <div className={classes.control}>
                         <div className={classes.select}>
@@ -77,9 +80,22 @@ const JudgesOrders = (props) => {
                         </div>
                     </div>
                     <div className={classes.orders}>
-                        {orders.map((item,index)=>(
-                            <JudgesOrdersItem key={index} item={item}/>
-                        ))}
+                        {orders.length > 0 && Judges_rank_doc.map((type,index)=>{
+                            let res = orders.filter(el => el.orderType === type.value);
+                            if(res){
+                                return (
+                                    <>
+                                        {orderType === '' && (
+                                            <h3 style={{textAlign: 'center'}}>{type.title}</h3>
+                                        )}
+                                        {res.map((item,index)=>(
+                                            <JudgesOrdersItem key={index+'2'} item={item}/>
+                                        ))}
+                                    </>
+                                )
+                            }
+
+                        })}
                     </div>
                 </div>
             </BpContainer>

@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
         '& img': {
             marginRight: 10
         }
+    },
+    title: {
+        textTransform: "uppercase",
+        fontSize: '80%'
     }
 }))
 

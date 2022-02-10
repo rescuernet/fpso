@@ -8,7 +8,7 @@ import {toJS} from "mobx";
 
 const useStyles = makeStyles((theme) => ({
     order: {
-        border: '1px solid #233044',
+        borderBottom: '1px solid #c4c4c4',
         padding: 10,
         marginBottom: 20
     },
@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     judges: {
         marginBottom: 20,
         paddingBottom: 5,
-        borderBottom: '1px solid #ccc',
     },
     judgesItem: {
         paddingBottom: 10
@@ -52,18 +51,11 @@ const JudgesOrdersItem = ({item}) => {
 
     const classes = useStyles();
 
-    const orderType = Judges_rank_doc.find((i => i.value === item.orderType))
-
     const SortArray = (x, y) => {return x.surname.localeCompare(y.surname);}
     const judges = toJS(item.judges).sort(SortArray)
 
     return (
         <div className={classes.order}>
-            <div className={classes.header}>
-                <div>{dateFns.format(new Date(item.dateOrder), 'dd.MM.yyyy')}</div>
-            </div>
-
-            <div className={classes.orderHeaders}>{orderType.title}</div>
             <div className={classes.judges}>
                 {judges.map((i,index)=>(
                     <div key={index} className={classes.judgesItem + ' ' + (i.view === false ? classes.judgesItemRed : '')}>{`${index +1}. ${i.surname} ${i.name} ${i.patronymic}`}</div>
