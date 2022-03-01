@@ -85,6 +85,7 @@ const useStyles = makeStyles({
             lineHeight: 1.5,
             textAlign: "left",
         },
+        whiteSpace: 'pre-wrap'
     },
     images: {
         margin: '10px 0',

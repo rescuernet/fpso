@@ -104,7 +104,9 @@ const useStyles = makeStyles({
     text: {
         fontSize: '110%',
         lineHeight: '1.8',
-        marginBottom: 20
+        paddingTop: 10,
+        marginBottom: 20,
+        whiteSpace: 'pre-wrap'
     },
     docs: {
         marginTop: 10
